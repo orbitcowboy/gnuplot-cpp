@@ -21,7 +21,6 @@
 
 using namespace std;
 
-
 void wait_for_key(); // Programm halts until keypress
 
 

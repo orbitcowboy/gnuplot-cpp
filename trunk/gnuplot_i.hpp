@@ -239,9 +239,8 @@ class Gnuplot
                              const int column_y = 2,
                              const std::string &title = "");
         //   from std::vector
-        Gnuplot& plot_xy(const std::vector<double> &x,
-                         const std::vector<double> &y,
-                         const std::string &title = "");
+        template<typename C>
+        Gnuplot& plot_xy(const C& x, const C& y, const std::string &title = "");
 
 
         // plot x,y pairs with dy errorbars: x y dy
