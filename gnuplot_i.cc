@@ -1114,8 +1114,8 @@ Gnuplot& Gnuplot::plotfile_xy(const std::string &filename,
 //
 // Plots a 2d graph from a list of doubles: x y
 //
-template<typename C>
-Gnuplot& Gnuplot::plot_xy(const C& x, const C& y, const std::string &title)
+template<typename X, typename Y>
+Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
 {
     if (x.size() == 0 || y.size() == 0)
     {
