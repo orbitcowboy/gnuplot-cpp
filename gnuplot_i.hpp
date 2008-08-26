@@ -30,6 +30,7 @@
 
 #include <string>
 #include <vector>
+#include <fstream>    // for std::ifstream
 #include <stdexcept>  // for std::runtime_error class in GnuplotException
 #include <cstdio>     // for FILE (identifies a stream and contains a pointer to its buffer, its position indicator and all its state indicators)
 
@@ -228,8 +229,8 @@ class Gnuplot
                             const int column = 1,
                             const std::string &title = "");
         //   from std::vector
-        Gnuplot& plot_x(const std::vector<double> &x,
-                        const std::string &title = "");
+        template<typename X>
+        Gnuplot& plot_x(const X& x, const std::string &title = "");
 
 
         // plot x,y pairs: x y
@@ -324,5 +325,79 @@ class Gnuplot
 
 };
 
+
+//----------------------------------------------------------------------------------
+//
+// Plots a 2d graph from a list of doubles: x
+//
+template<typename X>
+Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
+{
+    if (x.size() == 0)
+    {
+        throw GnuplotException("std::vector too small");
+        return *this;
+    }
+
+    std::ofstream tmp;
+    std::string name = create_tmpfile(tmp);
+    if (name == "")
+        return *this;
+
+    //
+    // write the data to file
+    //
+    for (unsigned int i = 0; i < x.size(); i++)
+        tmp << x[i] << std::endl;
+
+    tmp.flush();
+    tmp.close();
+
+
+    plotfile_x(name, 1, title);
+
+    return *this;
+}
+
+  
+//----------------------------------------------------------------------------------
+//
+// Plots a 2d graph from a list of doubles: x y
+//
+template<typename X, typename Y>
+Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
+{
+    if (x.size() == 0 || y.size() == 0)
+    {
+        throw GnuplotException("std::vectors too small");
+        return *this;
+    }
+
+    if (x.size() != y.size())
+    {
+        throw GnuplotException("Length of the std::vectors differs");
+        return *this;
+    }
+
+
+    std::ofstream tmp;
+    std::string name = create_tmpfile(tmp);
+    if (name == "")
+        return *this;
+
+    //
+    // write the data to file
+    //
+    for (unsigned int i = 0; i < x.size(); i++)
+        tmp << x[i] << " " << y[i] << std::endl;
+
+    tmp.flush();
+    tmp.close();
+
+
+    plotfile_xy(name, 1, 2, title);
+
+    return *this;
+}
 
 #endif

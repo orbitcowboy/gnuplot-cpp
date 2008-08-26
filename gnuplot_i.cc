@@ -1023,39 +1023,6 @@ Gnuplot& Gnuplot::plotfile_x(const std::string &filename,
 }
 
 
-//----------------------------------------------------------------------------------
-//
-// Plots a 2d graph from a list of doubles: x
-//
-Gnuplot& Gnuplot::plot_x(const std::vector<double> &x,
-                         const std::string &title)
-{
-    if (x.size() == 0)
-    {
-        throw GnuplotException("std::vector too small");
-        return *this;
-    }
-
-    std::ofstream tmp;
-    std::string name = create_tmpfile(tmp);
-    if (name == "")
-        return *this;
-
-    //
-    // write the data to file
-    //
-    for (unsigned int i = 0; i < x.size(); i++)
-        tmp << x[i] << std::endl;
-
-    tmp.flush();
-    tmp.close();
-
-
-    plotfile_x(name, 1, title);
-
-    return *this;
-}
-
 
 //----------------------------------------------------------------------------------
 //
@@ -1106,46 +1073,6 @@ Gnuplot& Gnuplot::plotfile_xy(const std::string &filename,
     // Do the actual plot
     //
     cmd(cmdstr.str());
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
-// Plots a 2d graph from a list of doubles: x y
-//
-template<typename X, typename Y>
-Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
-{
-    if (x.size() == 0 || y.size() == 0)
-    {
-        throw GnuplotException("std::vectors too small");
-        return *this;
-    }
-
-    if (x.size() != y.size())
-    {
-        throw GnuplotException("Length of the std::vectors differs");
-        return *this;
-    }
-
-
-    std::ofstream tmp;
-    std::string name = create_tmpfile(tmp);
-    if (name == "")
-        return *this;
-
-    //
-    // write the data to file
-    //
-    for (unsigned int i = 0; i < x.size(); i++)
-        tmp << x[i] << " " << y[i] << std::endl;
-
-    tmp.flush();
-    tmp.close();
-
-
-    plotfile_xy(name, 1, 2, title);
 
     return *this;
 }
