@@ -197,12 +197,12 @@ class Gnuplot
         Gnuplot& set_zlabel(const std::string &label = "z");
 
         // set axis - ranges
-        Gnuplot& set_xrange(const int iFrom,
-                            const int iTo);
-        Gnuplot& set_yrange(const int iFrom,
-                            const int iTo);
-        Gnuplot& set_zrange(const int iFrom,
-                            const int iTo);
+        Gnuplot& set_xrange(const double iFrom,
+                            const double iTo);
+        Gnuplot& set_yrange(const double iFrom,
+                            const double iTo);
+        Gnuplot& set_zrange(const double iFrom,
+                            const double iTo);
         // autoscale axis (set by default)
         Gnuplot& set_xautoscale();
         Gnuplot& set_yautoscale();
@@ -217,7 +217,7 @@ class Gnuplot
         Gnuplot& unset_zlogscale();
 
         // set palette range (autoscale by default)
-        Gnuplot& set_cbrange(const int iFrom, const int iTo);
+        Gnuplot& set_cbrange(const double iFrom, const double iTo);
 
 
     //----------------------------------------------------------------------------------
@@ -226,7 +226,7 @@ class Gnuplot
         // plot a single std::vector: x
         //   from file
         Gnuplot& plotfile_x(const std::string &filename,
-                            const int column = 1,
+                            const unsigned int column = 1,
                             const std::string &title = "");
         //   from std::vector
         template<typename X>
@@ -236,8 +236,8 @@ class Gnuplot
         // plot x,y pairs: x y
         //   from file
         Gnuplot& plotfile_xy(const std::string &filename,
-                             const int column_x = 1,
-                             const int column_y = 2,
+                             const unsigned int column_x = 1,
+                             const unsigned int column_y = 2,
                              const std::string &title = "");
         //   from std::vector
         template<typename X, typename Y>
@@ -247,9 +247,9 @@ class Gnuplot
         // plot x,y pairs with dy errorbars: x y dy
         //   from file
         Gnuplot& plotfile_xy_err(const std::string &filename,
-                                 const int column_x  = 1,
-                                 const int column_y  = 2,
-                                 const int column_dy = 3,
+                                 const unsigned int column_x  = 1,
+                                 const unsigned int column_y  = 2,
+                                 const unsigned int column_dy = 3,
                                  const std::string &title = "");
         //   from std::vector
         Gnuplot& plot_xy_err(const std::vector<double> &x,
@@ -261,9 +261,9 @@ class Gnuplot
         // plot x,y,z triples: x y z
         //   from file
         Gnuplot& plotfile_xyz(const std::string &filename,
-                              const int column_x = 1,
-                              const int column_y = 2,
-                              const int column_z = 3,
+                              const unsigned int column_x = 1,
+                              const unsigned int column_y = 2,
+                              const unsigned int column_z = 3,
                               const std::string &title = "");
         //   from std::vector
         Gnuplot& plot_xyz(const std::vector<double> &x,
@@ -299,9 +299,9 @@ class Gnuplot
 
 
         // plot image
-        Gnuplot& plot_image(const unsigned char * ucPicBuf,
-                            const int iWidth,
-                            const int iHeight,
+        Gnuplot& plot_image(const unsigned char *ucPicBuf,
+                            const unsigned int iWidth,
+                            const unsigned int iHeight,
                             const std::string &title = "");
 
 

@@ -781,8 +781,8 @@ Gnuplot& Gnuplot::set_zlabel(const std::string &label)
 // set range
 //
 // set the xrange
-Gnuplot& Gnuplot::set_xrange(const int iFrom,
-                             const int iTo)
+Gnuplot& Gnuplot::set_xrange(const double iFrom,
+                             const double iTo)
 {
     std::ostringstream cmdstr;
 
@@ -806,8 +806,8 @@ Gnuplot& Gnuplot::set_xautoscale()
 //----------------------------------------------------------------------------------
 // set the yrange
 //
-Gnuplot& Gnuplot::set_yrange(const int iFrom,
-                             const int iTo)
+Gnuplot& Gnuplot::set_yrange(const double iFrom,
+                             const double iTo)
 {
     std::ostringstream cmdstr;
 
@@ -831,8 +831,8 @@ Gnuplot& Gnuplot::set_yautoscale()
 //----------------------------------------------------------------------------------
 // set the zrange
 //
-Gnuplot& Gnuplot::set_zrange(const int iFrom,
-                             const int iTo)
+Gnuplot& Gnuplot::set_zrange(const double iFrom,
+                             const double iTo)
 {
     std::ostringstream cmdstr;
 
@@ -857,8 +857,8 @@ Gnuplot& Gnuplot::set_zautoscale()
 //
 // set the palette range
 //
-Gnuplot& Gnuplot::set_cbrange(const int iFrom,
-                              const int iTo)
+Gnuplot& Gnuplot::set_cbrange(const double iFrom,
+                              const double iTo)
 {
     std::ostringstream cmdstr;
 
@@ -975,7 +975,7 @@ Gnuplot& Gnuplot::plot_equation3d(const std::string &equation,
 // Plots a 2d graph from a list of doubles (x) saved in a file
 //
 Gnuplot& Gnuplot::plotfile_x(const std::string &filename,
-                             const int column,
+                             const unsigned int column,
                              const std::string &title)
 {
     //
@@ -1029,8 +1029,8 @@ Gnuplot& Gnuplot::plotfile_x(const std::string &filename,
 // Plots a 2d graph from a list of doubles (x y) saved in a file
 //
 Gnuplot& Gnuplot::plotfile_xy(const std::string &filename,
-                              const int column_x,
-                              const int column_y,
+                              const unsigned int column_x,
+                              const unsigned int column_y,
                               const std::string &title)
 {
     //
@@ -1083,9 +1083,9 @@ Gnuplot& Gnuplot::plotfile_xy(const std::string &filename,
 // Plots a 2d graph with errorbars from a list of doubles (x y dy) saved in a file
 //
 Gnuplot& Gnuplot::plotfile_xy_err(const std::string &filename,
-                                  const int column_x,
-                                  const int column_y,
-                                  const int column_dy,
+                                  const unsigned int column_x,
+                                  const unsigned int column_y,
+                                  const unsigned int column_dy,
                                   const std::string &title)
 {
     //
@@ -1181,9 +1181,9 @@ Gnuplot& Gnuplot::plot_xy_err(const std::vector<double> &x,
 // Plots a 3d graph from a list of doubles (x y z) saved in a file
 //
 Gnuplot& Gnuplot::plotfile_xyz(const std::string &filename,
-                               const int column_x,
-                               const int column_y,
-                               const int column_z,
+                               const unsigned int column_x,
+                               const unsigned int column_y,
+                               const unsigned int column_z,
                                const std::string &title)
 {
     //
@@ -1277,8 +1277,8 @@ Gnuplot& Gnuplot::plot_xyz(const std::vector<double> &x,
 /// *  note that this function is not valid for versions of GNUPlot below 4.2
 //
 Gnuplot& Gnuplot::plot_image(const unsigned char * ucPicBuf,
-                             const int iWidth,
-                             const int iHeight,
+                             const unsigned int iWidth,
+                             const unsigned int iHeight,
                              const std::string &title)
 {
     std::ofstream tmp;

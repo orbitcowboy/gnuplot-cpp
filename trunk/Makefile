@@ -10,7 +10,6 @@ CC=g++
 	$(CC) -c $(CFLAGS) $(DEFINES) $(INCLUDES) $<
 
 all::	example
-osx::	example_osx
 
 gnuplot_i.o:	gnuplot_i.cc gnuplot_i.hpp
 example.o:	example.cc gnuplot_i.cc
