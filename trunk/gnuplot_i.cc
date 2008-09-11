@@ -1134,50 +1134,6 @@ Gnuplot& Gnuplot::plotfile_xy_err(const std::string &filename,
 
 //----------------------------------------------------------------------------------
 //
-// plot x,y pairs with dy errorbars
-//
-Gnuplot& Gnuplot::plot_xy_err(const std::vector<double> &x,
-                              const std::vector<double> &y,
-                              const std::vector<double> &dy,
-                              const std::string &title)
-{
-    if (x.size() == 0 || y.size() == 0 || dy.size() == 0)
-    {
-        throw GnuplotException("std::vectors too small");
-        return *this;
-    }
-
-    if (x.size() != y.size() || y.size() != dy.size())
-    {
-        throw GnuplotException("Length of the std::vectors differs");
-        return *this;
-    }
-
-
-    std::ofstream tmp;
-    std::string name = create_tmpfile(tmp);
-    if (name == "")
-        return *this;
-
-    //
-    // write the data to file
-    //
-    for (unsigned int i = 0; i < x.size(); i++)
-        tmp << x[i] << " " << y[i] << " " << dy[i] << std::endl;
-
-    tmp.flush();
-    tmp.close();
-
-
-    // Do the actual plot
-    plotfile_xy_err(name, 1, 2, 3, title);
-
-    return *this;
-}
-
-
-//----------------------------------------------------------------------------------
-//
 // Plots a 3d graph from a list of doubles (x y z) saved in a file
 //
 Gnuplot& Gnuplot::plotfile_xyz(const std::string &filename,
