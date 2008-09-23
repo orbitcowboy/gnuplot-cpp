@@ -19,19 +19,18 @@
 #define SLEEP_LGTH 2  // sleep time in seconds
 #define NPOINTS    50 // length of array
 
-using namespace std;
-
 void wait_for_key(); // Programm halts until keypress
 
-
+using std::cout;
+using std::endl;
 
 int main(int argc, char* argv[])
 {
     // if path-variable for gnuplot is not set, do it with:
     // Gnuplot::set_GNUPlotPath("C:/program files/gnuplot/bin/");
 
-    // set a special standart terminal for showonscreen (normally not needed),
-    //   e.g. Mac users want to use x11 instead of aqua terminal:
+    // set a special standard terminal for showonscreen (normally not needed),
+    //   e.g. Mac users who want to use x11 instead of aqua terminal:
     // Gnuplot::set_terminal_std("x11");
 
     cout << "*** example of gnuplot control through C++ ***" << endl << endl;
@@ -41,7 +40,7 @@ int main(int argc, char* argv[])
     //
     try
     {
-        Gnuplot g1 = Gnuplot("lines");
+        Gnuplot g1("lines");
 
         //
         // Slopes
@@ -118,7 +117,7 @@ int main(int argc, char* argv[])
         //
         // User defined 1d, 2d and 3d point sets
         //
-        vector<double> x, y, y2, dy, z;
+        std::vector<double> x, y, y2, dy, z;
 
         for (int i = 0; i < NPOINTS; i++)  // fill double arrays x, y, z
         {

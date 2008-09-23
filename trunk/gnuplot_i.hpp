@@ -1,26 +1,26 @@
 ////////////////////////////////////////////////////////////////////////////////////////
-//
-// A C++ interface to gnuplot.
-//
-//
-// The interface uses pipes and so won't run on a system that doesn't have POSIX pipe support
-// Tested on Windows (MinGW and Visual C++) and Linux (GCC)
-//
-// Version history:
-// 0. C interface
-//    by N. Devillard (27/01/03)
-// 1. C++ interface: direct translation from the C interface
-//    by Rajarshi Guha (07/03/03)
-// 2. corrections for Win32 compatibility
-//    by V. Chyzhdzenka (20/05/03)
-// 3. some member functions added, corrections for Win32 and Linux compatibility
-//    by M. Burgis (10/03/08)
-//
-// Requirements:
-// * gnuplot has to be installed (http://www.gnuplot.info/download.html)
-// * for Windows: set Path-Variable for Gnuplot path (e.g. C:/program files/gnuplot/bin)
-//             or set Gnuplot path with: Gnuplot::set_GNUPlotPath(const std::string &path);
-//
+///
+///  \brief A C++ interface to gnuplot.
+///
+///
+///  The interface uses pipes and so won't run on a system that doesn't have POSIX pipe support
+///  Tested on Windows (MinGW and Visual C++) and Linux (GCC)
+///
+/// Version history:
+/// 0. C interface
+///    by N. Devillard (27/01/03)
+/// 1. C++ interface: direct translation from the C interface
+///    by Rajarshi Guha (07/03/03)
+/// 2. corrections for Win32 compatibility
+///    by V. Chyzhdzenka (20/05/03)
+/// 3. some member functions added, corrections for Win32 and Linux compatibility
+///    by M. Burgis (10/03/08)
+///
+/// Requirements:
+/// * gnuplot has to be installed (http://www.gnuplot.info/download.html)
+/// * for Windows: set Path-Variable for Gnuplot path (e.g. C:/program files/gnuplot/bin)
+///             or set Gnuplot path with: Gnuplot::set_GNUPlotPath(const std::string &path);
+///
 ////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -98,48 +98,77 @@ class Gnuplot
         std::string    create_tmpfile(std::ofstream &tmp);  
 
     //----------------------------------------------------------------------------------
-    //static functions
-        static bool    get_program_path();                                   // gnuplot path found?
-        static bool    file_exists(const std::string &filename, int mode=0); // checks if file exists
+	///\brief gnuplot path found?
+	///
+	/// \param ---
+	///
+	/// \return <-- found the gnuplot path (yes == true, no == false)
+	// ---------------------------------------------------------------------------------
+    static bool    get_program_path(); 
+	
+	// ---------------------------------------------------------------------------------
+	///\brief checks if file exists
+	///
+	/// \param filename --> the filename
+	/// \param mode 	--> the mode [optional,default value = 0]
+	///
+	/// \return file exists (yes == true, no == false)
+	// ---------------------------------------------------------------------------------                                  
+    static bool    file_exists(const std::string &filename, int mode=0); 
 
-
-//--------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------
     public:
 
-        /// optional: set Gnuplot path manual
-        ///   for windows: path with slash '/' not backslash '\'
+		// ----------------------------------------------------------------------------
+        /// \brief optional function: set Gnuplot path manual
+        /// attention:  for windows: path with slash '/' not backslash '\'
+		/// 
+		/// \param path --> the gnuplot path
+		///
+		/// \return true on success, false otherwise
+		// ----------------------------------------------------------------------------
         static bool set_GNUPlotPath(const std::string &path);
 
+
+		// ----------------------------------------------------------------------------
         /// optional: set standart terminal, used by showonscreen
         ///   defaults: Windows - win, Linux - x11, Mac - aqua
+		/// 
+		/// \param type --> the terminal type
+		///
+		/// \return ---
+		// ----------------------------------------------------------------------------
         static void set_terminal_std(const std::string &type);
 
-    	//----------------------------------------------------------------------------------
+    	//-----------------------------------------------------------------------------
     	// constructors
+		// ----------------------------------------------------------------------------
 
-        /// set a style during construction
+
+	    ///\brief set a style during construction
         Gnuplot(const std::string &style = "points");
 
         /// plot a single std::vector at one go
-        Gnuplot(const std::vector<double> &x,
+        template<typename X>
+        Gnuplot(const X &x,
                 const std::string &title = "",
                 const std::string &style = "points",
                 const std::string &labelx = "x",
                 const std::string &labely = "y");
 
          /// plot pairs std::vector at one go
-        Gnuplot(const std::vector<double> &x,
-                const std::vector<double> &y,
+        template<typename X, typename Y>
+        Gnuplot(const X &x,
+                const Y &y,
                 const std::string &title = "",
                 const std::string &style = "points",
                 const std::string &labelx = "x",
                 const std::string &labely = "y");
 
          /// plot triples std::vector at one go
-        Gnuplot(const std::vector<double> &x,
-                const std::vector<double> &y,
-                const std::vector<double> &z,
+        template<typename X, typename Y, typename Z>
+        Gnuplot(const X &x,
+                const Y &y,
+                const Z &z,
                 const std::string &title = "",
                 const std::string &style = "points",
                 const std::string &labelx = "x",
@@ -152,10 +181,18 @@ class Gnuplot
 
     //----------------------------------------------------------------------------------
 
-         /// send a command to gnuplot
+    /// send a command to gnuplot
         Gnuplot& cmd(const std::string &cmdstr);
+	// ---------------------------------------------------------------------------------
+	///\brief Sends a command to an active gnuplot session, identical to cmd()
 	/// send a command to gnuplot using the <<  operator
-        Gnuplot& operator<<(const std::string &cmdstr);
+	///
+	/// \param cmdstr --> the command string
+	/// 
+	/// \return <-- a reference to the gnuplot object	
+	// ---------------------------------------------------------------------------------
+    inline Gnuplot& operator<<(const std::string &cmdstr){cmd(cmdstr); return(*this);};
+
 
 
     //----------------------------------------------------------------------------------
@@ -181,47 +218,116 @@ class Gnuplot
         /// (works only with plot_x, plot_xy, plotfile_x, plotfile_xy
         /// (if smooth is set, set_style has no effekt on data plotting)
         Gnuplot& set_smooth(const std::string &stylestr = "csplines");
-        Gnuplot& unset_smooth(); // smooth is not set by default
+
+		// ----------------------------------------------------------------------
+		/// \brief unset smooth
+		/// attention: smooth is not set by default
+		/// 
+		/// \param ---
+		/// 
+		/// \return <-- a reference to a gnuplot object
+		// ----------------------------------------------------------------------
+        inline Gnuplot& unset_smooth(){ smooth = ""; return *this;}; 
+
 
         /// scales the size of the points used in plots
         Gnuplot& set_pointsize(const double pointsize = 1.0);
 
         /// turns grid on/off
-        Gnuplot& set_grid();
-        /// grid is not set by default	
-        Gnuplot& unset_grid(); 
+        inline Gnuplot& set_grid()	{cmd("set grid");return *this;};
+		/// grid is not set by default	
+        inline Gnuplot& unset_grid(){cmd("unset grid");return *this;}; 
+
 
         /// set sampling rate of functions, or for interpolating data
         Gnuplot& set_samples(const int samples = 100);
         /// set isoline density (grid) for plotting functions as surfaces (for 3d plots)
         Gnuplot& set_isosamples(const int isolines = 10);
 
+		// --------------------------------------------------------------------------
         /// enables/disables hidden line removal for surface plotting (for 3d plot)
-        Gnuplot& set_hidden3d();
-	    /// hidden3d is not set by default
-        Gnuplot& unset_hidden3d(); 
+		///
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// --------------------------------------------------------------------------
+        Gnuplot& set_hidden3d(){cmd("set hidden3d");return *this;};
+
+		// ---------------------------------------------------------------------------
+		/// hidden3d is not set by default
+		///
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// ---------------------------------------------------------------------------
+        inline Gnuplot& unset_hidden3d(){cmd("unset hidden3d"); return *this;}; 
 
         /// enables/disables contour drawing for surfaces (for 3d plot)
         ///  base, surface, both
         Gnuplot& set_contour(const std::string &position = "base");
-	    /// contour is not set by default
-        Gnuplot& unset_contour(); 
+		// --------------------------------------------------------------------------
+		/// contour is not set by default, it disables contour drawing for surfaces
+		///
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// ------------------------------------------------------------------
+        inline Gnuplot& unset_contour(){cmd("unset contour");return *this;};
 
+		// ------------------------------------------------------------
         /// enables/disables the display of surfaces (for 3d plot)
-        Gnuplot& set_surface(); 
-	    /// surface is set by default
-        Gnuplot& unset_surface();
+		///
+		/// \param ---	
+		///
+		/// \return <-- reference to the gnuplot object
+		// ------------------------------------------------------------------
+        inline Gnuplot& set_surface(){cmd("set surface");return *this;}; 
+
+		// ----------------------------------------------------------
+		/// surface is set by default,
+		/// it disables the display of surfaces (for 3d plot)
+		///
+		/// \param ---	
+		///
+		/// \return <-- reference to the gnuplot object
+		// ------------------------------------------------------------------
+        inline Gnuplot& unset_surface(){cmd("unset surface"); return *this;};
+
 
         /// switches legend on/off
         /// position: inside/outside, left/center/right, top/center/bottom, nobox/box
         Gnuplot& set_legend(const std::string &position = "default"); 
-        /// legend is set by default
-        Gnuplot& unset_legend();
 
-        /// sets and clears the title of a gnuplot session
-        Gnuplot& set_title(const std::string &title = "");
-        /// title is not set by default
-        Gnuplot& unset_title(); 
+		// ------------------------------------------------------------------
+		/// \brief  Switches legend off
+		/// attention:legend is set by default
+		///
+		/// \param ---	
+		///
+		/// \return <-- reference to the gnuplot object
+		// ------------------------------------------------------------------
+        inline Gnuplot& unset_legend(){cmd("unset key"); return *this;};
+
+		// ----------------------------------------------------------------------- 
+        /// \brief sets and clears the title of a gnuplot session
+		///
+		/// \param title --> the title of the plot [optional, default == ""]
+		///
+		/// \return <-- reference to the gnuplot object
+		// ----------------------------------------------------------------------- 
+        inline Gnuplot& set_title(const std::string &title = "")
+		{std::string cmdstr;cmdstr = "set title \"";cmdstr+=title;cmdstr+="\""; *this<<cmdstr; return *this;};
+
+		//----------------------------------------------------------------------------------
+		///\brief Clears the title of a gnuplot session
+		/// The title is not set by default.
+		///
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// ---------------------------------------------------------------------------------
+        inline Gnuplot& unset_title(){this->set_title();return *this;}; 
+
 
         /// set x axis label
         Gnuplot& set_ylabel(const std::string &label = "x");
@@ -240,11 +346,31 @@ class Gnuplot
         Gnuplot& set_zrange(const double iFrom,
                             const double iTo);
         /// autoscale axis (set by default) of xaxis
-        Gnuplot& set_xautoscale();
+		/// 
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// -----------------------------------------------
+        inline Gnuplot& set_xautoscale(){cmd("set xrange restore");cmd("set autoscale x");return *this;};
+
+		// -----------------------------------------------
         /// autoscale axis (set by default) of yaxis
-        Gnuplot& set_yautoscale();
+		/// 
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// -----------------------------------------------
+        inline Gnuplot& set_yautoscale(){cmd("set yrange restore");cmd("set autoscale y");return *this;};
+
+		// -----------------------------------------------
         /// autoscale axis (set by default) of zaxis
-        Gnuplot& set_zautoscale();
+		/// 
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// -----------------------------------------------
+        inline Gnuplot& set_zautoscale(){cmd("set zrange restore");cmd("set autoscale z");return *this;};
+
 
         /// turns on/off log scaling for the specified xaxis (logscale is not set by default)
         Gnuplot& set_xlogscale(const double base = 10);
@@ -252,16 +378,41 @@ class Gnuplot
         Gnuplot& set_ylogscale(const double base = 10);
         /// turns on/off log scaling for the specified zaxis (logscale is not set by default)
         Gnuplot& set_zlogscale(const double base = 10);
-        Gnuplot& unset_xlogscale();
-        Gnuplot& unset_ylogscale();
-        Gnuplot& unset_zlogscale();
+
+		// ----------------------------------------------- 
+		/// turns off log scaling for the x axis
+		/// 
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// -----------------------------------------------	
+        inline Gnuplot& unset_xlogscale(){cmd("unset logscale x"); return *this;};
+
+		// ----------------------------------------------- 
+		/// turns off log scaling for the y axis
+		/// 
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// -----------------------------------------------	
+        inline Gnuplot& unset_ylogscale(){cmd("unset logscale y"); return *this;};
+
+		// ----------------------------------------------- 
+		/// turns off log scaling for the z axis
+		/// 
+		/// \param ---
+		///
+		/// \return <-- reference to the gnuplot object
+		// -----------------------------------------------		
+        inline Gnuplot& unset_zlogscale(){cmd("unset logscale z"); return *this;};
+
 
         /// set palette range (autoscale by default)
         Gnuplot& set_cbrange(const double iFrom, const double iTo);
 
 
-    //----------------------------------------------------------------------------------
-    // plot
+    	//----------------------------------------------------------------------------------
+    	// plot
 
         /// plot a single std::vector: x
         ///   from file
@@ -305,9 +456,10 @@ class Gnuplot
                               const unsigned int column_z = 3,
                               const std::string &title = "");
         ///   from std::vector
-        Gnuplot& plot_xyz(const std::vector<double> &x,
-                          const std::vector<double> &y,
-                          const std::vector<double> &z,
+        template<typename X, typename Y, typename Z>
+        Gnuplot& plot_xyz(const X &x,
+                          const Y &y,
+                          const Z &z,
                           const std::string &title = "");
 
 
@@ -344,13 +496,16 @@ class Gnuplot
                             const std::string &title = "");
 
 
-    //----------------------------------------------------------------------------------
-
-        /// replot repeats the last plot or splot command.
+    	//----------------------------------------------------------------------------------
+        ///\brief replot repeats the last plot or splot command.
         ///  this can be useful for viewing a plot with different set options,
         ///  or when generating the same plot for several devices (showonscreen, savetops)
-        Gnuplot& replot();
-
+		/// 
+		/// \param ---
+		///
+		/// \return ---
+    	//----------------------------------------------------------------------------------
+        inline Gnuplot& replot(void){if (nplots > 0) cmd("replot");return *this;};
 
         /// resets a gnuplot session (next plot will erase previous ones)
         Gnuplot& reset_plot();
@@ -358,11 +513,95 @@ class Gnuplot
         /// resets a gnuplot session and sets all variables to default
         Gnuplot& reset_all();
 
-
-        /// validation of gnuplot session
-        bool is_valid();
+		// -------------------------------------------------------------------
+		/// \brief Is the gnuplot session valid ??
+        /// 
+		///
+		/// \param ---
+		/// 
+		/// \return true if valid, false if not
+		// ------------------------------------------------------------------- 
+        inline bool is_valid(){return(valid);};
 
 };
+
+
+//----------------------------------------------------------------------------------
+//
+// constructor: set a style during construction
+//
+Gnuplot::Gnuplot(const std::string &style)
+{
+    init();
+    set_style(style);
+}
+  
+//----------------------------------------------------------------------------------
+//
+// constructor: open a new session, plot a signal (x)
+//
+template<typename X>
+Gnuplot::Gnuplot(const X &x,
+                 const std::string &title,
+                 const std::string &style,
+                 const std::string &labelx,
+                 const std::string &labely)
+{
+    init();
+
+    set_style(style);
+    set_xlabel(labelx);
+    set_ylabel(labely);
+
+    plot_x(x,title);
+}
+
+
+//----------------------------------------------------------------------------------
+//
+// constructor: open a new session, plot a signal (x,y)
+//
+template<typename X, typename Y>
+Gnuplot::Gnuplot(const X &x,
+                 const Y &y,
+                 const std::string &title,
+                 const std::string &style,
+                 const std::string &labelx,
+                 const std::string &labely)
+{
+    init();
+
+    set_style(style);
+    set_xlabel(labelx);
+    set_ylabel(labely);
+
+    plot_xy(x,y,title);
+}
+
+
+//----------------------------------------------------------------------------------
+//
+// constructor: open a new session, plot a signal (x,y,z)
+//
+template<typename X, typename Y, typename Z>
+Gnuplot::Gnuplot(const X &x,
+                 const Y &y,
+                 const Z &z,
+                 const std::string &title,
+                 const std::string &style,
+                 const std::string &labelx,
+                 const std::string &labely,
+                 const std::string &labelz)
+{
+    init();
+
+    set_style(style);
+    set_xlabel(labelx);
+    set_ylabel(labely);
+    set_zlabel(labelz);
+
+    plot_xyz(x,y,z,title);
+}
 
 
 //----------------------------------------------------------------------------------
