@@ -188,82 +188,6 @@ void stringtok (Container &container,
 
 //----------------------------------------------------------------------------------
 //
-// constructor: set a style during construction
-//
-Gnuplot::Gnuplot(const std::string &style)
-{
-    init();
-    set_style(style);
-}
-
-
-//----------------------------------------------------------------------------------
-//
-// constructor: open a new session, plot a signal (x)
-//
-Gnuplot::Gnuplot(const std::vector<double> &x,
-                 const std::string &title,
-                 const std::string &style,
-                 const std::string &labelx,
-                 const std::string &labely)
-{
-    init();
-
-    set_style(style);
-    set_xlabel(labelx);
-    set_ylabel(labely);
-
-    plot_x(x,title);
-}
-
-
-//----------------------------------------------------------------------------------
-//
-// constructor: open a new session, plot a signal (x,y)
-//
-Gnuplot::Gnuplot(const std::vector<double> &x,
-                 const std::vector<double> &y,
-                 const std::string &title,
-                 const std::string &style,
-                 const std::string &labelx,
-                 const std::string &labely)
-{
-    init();
-
-    set_style(style);
-    set_xlabel(labelx);
-    set_ylabel(labely);
-
-    plot_xy(x,y,title);
-}
-
-
-//----------------------------------------------------------------------------------
-//
-// constructor: open a new session, plot a signal (x,y,z)
-//
-Gnuplot::Gnuplot(const std::vector<double> &x,
-                 const std::vector<double> &y,
-                 const std::vector<double> &z,
-                 const std::string &title,
-                 const std::string &style,
-                 const std::string &labelx,
-                 const std::string &labely,
-                 const std::string &labelz)
-{
-    init();
-
-    set_style(style);
-    set_xlabel(labelx);
-    set_ylabel(labely);
-    set_zlabel(labelz);
-
-    plot_xyz(x,y,z,title);
-}
-
-
-//----------------------------------------------------------------------------------
-//
 // Destructor: needed to delete temporary files
 //
 Gnuplot::~Gnuplot()
@@ -328,32 +252,6 @@ Gnuplot& Gnuplot::reset_all()
     pstyle = "points";
     smooth = "";
     showonscreen();
-
-    return *this;
-}
-
-
-//----------------------------------------------------------------------------------
-//
-// Find out if valid is true
-//
-bool Gnuplot::is_valid()
-{
-    return(valid);
-}
-
-
-
-//----------------------------------------------------------------------------------
-//
-// replot repeats the last plot or splot command
-//
-Gnuplot& Gnuplot::replot()
-{
-    if (nplots > 0)
-    {
-        cmd("replot");
-    }
 
     return *this;
 }
@@ -431,19 +329,6 @@ Gnuplot& Gnuplot::set_smooth(const std::string &stylestr)
 
 //----------------------------------------------------------------------------------
 //
-// unset smooth
-//
-Gnuplot& Gnuplot::unset_smooth()
-{
-    smooth = "";
-
-    return *this;
-}
-
-
-
-//----------------------------------------------------------------------------------
-//
 // sets terminal type to windows / x11
 //
 Gnuplot& Gnuplot::showonscreen()
@@ -479,39 +364,6 @@ Gnuplot& Gnuplot::set_legend(const std::string &position)
     cmdstr << "set key " << position;
 
     cmd(cmdstr.str());
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
-// Switches legend off
-//
-Gnuplot& Gnuplot::unset_legend()
-{
-    cmd("unset key");
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
-// Turns grid on
-//
-Gnuplot& Gnuplot::set_grid()
-{
-    cmd("set grid");
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
-// Turns grid off
-//
-Gnuplot& Gnuplot::unset_grid()
-{
-    cmd("unset grid");
 
     return *this;
 }
@@ -560,37 +412,6 @@ Gnuplot& Gnuplot::set_zlogscale(const double base)
 
 //----------------------------------------------------------------------------------
 //
-// turns off log scaling for the x axis
-//
-Gnuplot& Gnuplot::unset_xlogscale()
-{
-    cmd("unset logscale x");
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
-// turns off log scaling for the y axis
-//
-Gnuplot& Gnuplot::unset_ylogscale()
-{
-    cmd("unset logscale y");
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
-// turns off log scaling for the z axis
-//
-Gnuplot& Gnuplot::unset_zlogscale()
-{
-    cmd("unset logscale z");
-    return *this;
-}
-
-
-//----------------------------------------------------------------------------------
-//
 // scales the size of the points used in plots
 //
 Gnuplot& Gnuplot::set_pointsize(const double pointsize)
@@ -632,28 +453,6 @@ Gnuplot& Gnuplot::set_isosamples(const int isolines)
 
 //----------------------------------------------------------------------------------
 //
-// enables hidden line removal for surface plotting
-//
-Gnuplot& Gnuplot::set_hidden3d()
-{
-    cmd("set hidden3d");
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
-// disables hidden line removal for surface plotting
-//
-Gnuplot& Gnuplot::unset_hidden3d()
-{
-    cmd("unset hidden3d");
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
 // enables contour drawing for surfaces set contour {base | surface | both}
 //
 
@@ -669,68 +468,6 @@ Gnuplot& Gnuplot::set_contour(const std::string &position)
     {
         cmd("set contour " + position);
     }
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
-// disables contour drawing for surfaces
-//
-
-Gnuplot& Gnuplot::unset_contour()
-{
-    cmd("unset contour");
-
-    return *this;
-}
-
-
-//----------------------------------------------------------------------------------
-//
-// enables the display of surfaces (for 3d plot)
-//
-Gnuplot& Gnuplot::set_surface()
-{
-    cmd("set surface");
-
-    return *this;
-}
-
-
-//----------------------------------------------------------------------------------
-//
-// disables the display of surfaces (for 3d plot)
-//
-Gnuplot& Gnuplot::unset_surface()
-{
-    cmd("unset surface");
-
-    return *this;
-}
-
-
-//----------------------------------------------------------------------------------
-//
-// Sets the title of a gnuplot session
-//
-Gnuplot& Gnuplot::set_title(const std::string &title)
-{
-    std::ostringstream cmdstr;
-
-    cmdstr << "set title \"" << title << "\"";
-    cmd(cmdstr.str());
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-//
-// Clears the title of a gnuplot session
-//
-Gnuplot& Gnuplot::unset_title()
-{
-    set_title("");
 
     return *this;
 }
@@ -793,17 +530,6 @@ Gnuplot& Gnuplot::set_xrange(const double iFrom,
 }
 
 //----------------------------------------------------------------------------------
-// set autoscale x
-//
-Gnuplot& Gnuplot::set_xautoscale()
-{
-    cmd("set xrange restore");
-    cmd("set autoscale x");
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
 // set the yrange
 //
 Gnuplot& Gnuplot::set_yrange(const double iFrom,
@@ -818,17 +544,6 @@ Gnuplot& Gnuplot::set_yrange(const double iFrom,
 }
 
 //----------------------------------------------------------------------------------
-// set autoscale y
-//
-Gnuplot& Gnuplot::set_yautoscale()
-{
-    cmd("set yrange restore");
-    cmd("set autoscale y");
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
 // set the zrange
 //
 Gnuplot& Gnuplot::set_zrange(const double iFrom,
@@ -838,17 +553,6 @@ Gnuplot& Gnuplot::set_zrange(const double iFrom,
 
     cmdstr << "set zrange[" << iFrom << ":" << iTo << "]";
     cmd(cmdstr.str());
-
-    return *this;
-}
-
-//----------------------------------------------------------------------------------
-// set autoscale z
-//
-Gnuplot& Gnuplot::set_zautoscale()
-{
-    cmd("set zrange restore");
-    cmd("set autoscale z");
 
     return *this;
 }
@@ -1186,9 +890,10 @@ Gnuplot& Gnuplot::plotfile_xyz(const std::string &filename,
 //
 // Plots a 3d graph from a list of doubles: x y z
 //
-Gnuplot& Gnuplot::plot_xyz(const std::vector<double> &x,
-                           const std::vector<double> &y,
-                           const std::vector<double> &z,
+template<typename X, typename Y, typename Z>
+Gnuplot& Gnuplot::plot_xyz(const X &x,
+                           const Y &y,
+                           const Z &z,
                            const std::string &title)
 {
     if (x.size() == 0 || y.size() == 0 || z.size() == 0)
@@ -1323,18 +1028,6 @@ Gnuplot& Gnuplot::cmd(const std::string &cmdstr)
         nplots++;
     }
 
-    return *this;
-}
-
-
-
-//----------------------------------------------------------------------------------
-//
-// Sends a command to an active gnuplot session, identical to cmd()
-//
-Gnuplot& Gnuplot::operator<<(const std::string &cmdstr)
-{
-    cmd(cmdstr);
     return *this;
 }
 
