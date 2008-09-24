@@ -148,27 +148,24 @@ class Gnuplot
         Gnuplot(const std::string &style = "points");
 
         /// plot a single std::vector at one go
-        template<typename X>
-        Gnuplot(const X &x,
+        Gnuplot(const std::vector<double> &x,
                 const std::string &title = "",
                 const std::string &style = "points",
                 const std::string &labelx = "x",
                 const std::string &labely = "y");
 
          /// plot pairs std::vector at one go
-        template<typename X, typename Y>
-        Gnuplot(const X &x,
-                const Y &y,
+        Gnuplot(const std::vector<double> &x,
+                const std::vector<double> &y,
                 const std::string &title = "",
                 const std::string &style = "points",
                 const std::string &labelx = "x",
                 const std::string &labely = "y");
 
          /// plot triples std::vector at one go
-        template<typename X, typename Y, typename Z>
-        Gnuplot(const X &x,
-                const Y &y,
-                const Z &z,
+        Gnuplot(const std::vector<double> &x,
+                const std::vector<double> &y,
+                const std::vector<double> &z,
                 const std::string &title = "",
                 const std::string &style = "points",
                 const std::string &labelx = "x",
@@ -530,7 +527,7 @@ class Gnuplot
 //
 // constructor: set a style during construction
 //
-Gnuplot::Gnuplot(const std::string &style)
+inline Gnuplot::Gnuplot(const std::string &style)
 {
     init();
     set_style(style);
@@ -540,8 +537,7 @@ Gnuplot::Gnuplot(const std::string &style)
 //
 // constructor: open a new session, plot a signal (x)
 //
-template<typename X>
-Gnuplot::Gnuplot(const X &x,
+inline Gnuplot::Gnuplot(const std::vector<double> &x,
                  const std::string &title,
                  const std::string &style,
                  const std::string &labelx,
@@ -561,9 +557,8 @@ Gnuplot::Gnuplot(const X &x,
 //
 // constructor: open a new session, plot a signal (x,y)
 //
-template<typename X, typename Y>
-Gnuplot::Gnuplot(const X &x,
-                 const Y &y,
+inline Gnuplot::Gnuplot(const std::vector<double> &x,
+                 const std::vector<double> &y,
                  const std::string &title,
                  const std::string &style,
                  const std::string &labelx,
@@ -583,10 +578,9 @@ Gnuplot::Gnuplot(const X &x,
 //
 // constructor: open a new session, plot a signal (x,y,z)
 //
-template<typename X, typename Y, typename Z>
-Gnuplot::Gnuplot(const X &x,
-                 const Y &y,
-                 const Z &z,
+inline Gnuplot::Gnuplot(const std::vector<double> &x,
+                 const std::vector<double> &y,
+                 const std::vector<double> &z,
                  const std::string &title,
                  const std::string &style,
                  const std::string &labelx,
@@ -718,6 +712,52 @@ Gnuplot& Gnuplot::plot_xy_err(const X &x,
 
     // Do the actual plot
     plotfile_xy_err(name, 1, 2, 3, title);
+
+    return *this;
+}
+
+
+//----------------------------------------------------------------------------------
+//
+// Plots a 3d graph from a list of doubles: x y z
+//
+template<typename X, typename Y, typename Z>
+Gnuplot& Gnuplot::plot_xyz(const X &x,
+                           const Y &y,
+                           const Z &z,
+                           const std::string &title)
+{
+    if (x.size() == 0 || y.size() == 0 || z.size() == 0)
+    {
+        throw GnuplotException("std::vectors too small");
+        return *this;
+    }
+
+    if (x.size() != y.size() || x.size() != z.size())
+    {
+        throw GnuplotException("Length of the std::vectors differs");
+        return *this;
+    }
+
+
+    std::ofstream tmp;
+    std::string name = create_tmpfile(tmp);
+    if (name == "")
+        return *this;
+
+    //
+    // write the data to file
+    //
+    for (unsigned int i = 0; i < x.size(); i++)
+    {
+        tmp << x[i] << " " << y[i] << " " << z[i] <<std::endl;
+    }
+
+    tmp.flush();
+    tmp.close();
+
+
+    plotfile_xyz(name, 1, 2, 3, title);
 
     return *this;
 }
