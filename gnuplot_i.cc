@@ -816,16 +816,13 @@ Gnuplot& Gnuplot::plotfile_xy_err(const std::string &filename,
     else
         cmdstr << "plot ";
 
-    cmdstr << "\"" << filename << "\" using " << column_x << ":" << column_y;
+    cmdstr << "\"" << filename << "\" using " 
+           << column_x << ":" << column_y << ":" << column_dy << " with errorbars ";
 
     if (title == "")
         cmdstr << " notitle ";
     else
         cmdstr << " title \"" << title << "\" ";
-
-    cmdstr << "with " << pstyle << ", \"" << filename << "\" using "
-           << column_x << ":" << column_y << ":" << column_dy << " notitle with errorbars";
-
 
     //
     // Do the actual plot
