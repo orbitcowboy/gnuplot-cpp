@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
         // Slopes
         //
         cout << "*** plotting slopes" << endl;
-        g1.set_title("Slopes");
+        g1.set_title("Slopes\\nNew Line");
 
         cout << "y = x" << endl;
         g1.plot_slope(1.0,0.0,"y=x");
