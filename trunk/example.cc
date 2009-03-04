@@ -50,15 +50,12 @@ int main(int argc, char* argv[])
 
         cout << "y = x" << endl;
         g1.plot_slope(1.0,0.0,"y=x");
-        sleep(SLEEP_LGTH);
 
         cout << "y = 2*x" << endl;
         g1.plot_slope(2.0,0.0,"y=2x");
-        sleep(SLEEP_LGTH);
 
         cout << "y = -x" << endl;
         g1.plot_slope(-1.0,0.0,"y=-x");
-        sleep(SLEEP_LGTH);
         g1.unset_title();
 
         //
@@ -69,15 +66,12 @@ int main(int argc, char* argv[])
 
         cout << "y = sin(x)" << endl;
         g1.plot_equation("sin(x)","sine");
-        sleep(SLEEP_LGTH);
 
         cout << "y = log(x)" << endl;
         g1.plot_equation("log(x)","logarithm");
-        sleep(SLEEP_LGTH);
 
         cout << "y = sin(x) * cos(2*x)" << endl;
         g1.plot_equation("sin(x)*cos(2*x)","sine product");
-        sleep(SLEEP_LGTH);
 
         //
         // Styles
@@ -88,17 +82,14 @@ int main(int argc, char* argv[])
         cout << "sine in points" << endl;
         g1.set_pointsize(0.8).set_style("points");
         g1.plot_equation("sin(x)","points");
-        sleep(SLEEP_LGTH);
 
         cout << "sine in impulses" << endl;
         g1.set_style("impulses");
         g1.plot_equation("sin(x)","impulses");
-        sleep(SLEEP_LGTH);
 
         cout << "sine in steps" << endl;
         g1.set_style("steps");
         g1.plot_equation("sin(x)","steps");
-        sleep(SLEEP_LGTH);
 
         //
         // Save to ps
@@ -133,24 +124,20 @@ int main(int argc, char* argv[])
         g1.reset_all();
         cout << endl << endl << "*** user-defined lists of doubles" << endl;
         g1.set_style("impulses").plot_x(y,"user-defined doubles");
-        sleep(SLEEP_LGTH);
 
         g1.reset_plot();
         cout << endl << endl << "*** user-defined lists of points (x,y)" << endl;
         g1.set_grid();
         g1.set_style("points").plot_xy(x,y,"user-defined points 2d");
-        sleep(SLEEP_LGTH);
 
         g1.reset_plot();
         cout << endl << endl << "*** user-defined lists of points (x,y,z)" << endl;
         g1.unset_grid();
         g1.plot_xyz(x,y,z,"user-defined points 3d");
-        sleep(SLEEP_LGTH);
 
         g1.reset_plot();
         cout << endl << endl << "*** user-defined lists of points (x,y,dy)" << endl;
         g1.plot_xy_err(x,y,dy,"user-defined points 2d with errorbars");
-        sleep(SLEEP_LGTH);
 
 
         //
@@ -164,10 +151,8 @@ int main(int argc, char* argv[])
         cout << "window 1: sin(x)" << endl;
         g1.set_grid().set_samples(600).set_xrange(0,300);
         g1.plot_equation("sin(x)+sin(x*1.1)");
-        sleep(SLEEP_LGTH);
 
         g1.set_xautoscale().replot();
-        sleep(SLEEP_LGTH);
 
         Gnuplot g2;
         cout << "window 2: user defined points" << endl;
@@ -175,44 +160,36 @@ int main(int argc, char* argv[])
         g2.set_smooth().plot_x(y2,"cspline");
         g2.set_smooth("bezier").plot_x(y2,"bezier");
         g2.unset_smooth();
-        sleep(SLEEP_LGTH);
 
         Gnuplot g3("lines");
         cout << "window 3: log(x)/x" << endl;
         g3.set_grid();
         g3.plot_equation("log(x)/x","log(x)/x");
-        sleep(SLEEP_LGTH);
 
         Gnuplot g4("lines");
         cout << "window 4: splot x*x+y*y" << endl;
         g4.set_zrange(0,100);
         g4.set_xlabel("x-axis").set_ylabel("y-axis").set_zlabel("z-axis");
         g4.plot_equation3d("x*x+y*y");
-        sleep(SLEEP_LGTH);
 
         Gnuplot g5("lines");
         cout << "window 5: splot with hidden3d" << endl;
         g5.set_isosamples(25).set_hidden3d();
         g5.plot_equation3d("x*y*y");
-        sleep(SLEEP_LGTH);
 
         Gnuplot g6("lines");
         cout << "window 6: splot with contour" << endl;
         g6.set_isosamples(60).set_contour();
         g6.unset_surface().plot_equation3d("sin(x)*sin(y)+4");
-        sleep(SLEEP_LGTH);
 
         g6.set_surface().replot();
-        sleep(SLEEP_LGTH);
 
         Gnuplot g7("lines");
         cout << "window 7: set_samples" << endl;
         g7.set_xrange(-30,20).set_samples(40);
         g7.plot_equation("besj0(x)*0.12e1").plot_equation("(x**besj0(x))-2.5");
-        sleep(SLEEP_LGTH);
 
         g7.set_samples(400).replot();
-        sleep(SLEEP_LGTH);
 
         Gnuplot g8("filledcurves");
         cout << "window 8: filledcurves" << endl;
@@ -235,10 +212,8 @@ int main(int argc, char* argv[])
             ucPicBuf[iIndex] = iIndex%255;
         }
         g9.plot_image(ucPicBuf,iWidth,iHeight,"greyscale");
-        sleep(SLEEP_LGTH);
 
         g9.set_pointsize(0.6).unset_legend().plot_slope(0.8,20);
-        sleep(SLEEP_LGTH);
 
         //
         // manual control
