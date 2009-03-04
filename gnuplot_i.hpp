@@ -107,6 +107,16 @@ class Gnuplot
     static bool    get_program_path(); 
 	
 	// ---------------------------------------------------------------------------------
+	///\brief checks if file is available
+	///
+	/// \param filename --> the filename
+	/// \param mode 	--> the mode [optional,default value = 0]
+	///
+	/// \return file exists (yes == true, no == false)
+	// ---------------------------------------------------------------------------------                                  
+    bool file_available(const std::string &filename);
+      
+	// ---------------------------------------------------------------------------------
 	///\brief checks if file exists
 	///
 	/// \param filename --> the filename
@@ -188,7 +198,10 @@ class Gnuplot
 	/// 
 	/// \return <-- a reference to the gnuplot object	
 	// ---------------------------------------------------------------------------------
-    inline Gnuplot& operator<<(const std::string &cmdstr){cmd(cmdstr); return(*this);};
+    inline Gnuplot& operator<<(const std::string &cmdstr){
+        cmd(cmdstr);
+        return(*this);
+    }
 
 
 
@@ -288,7 +301,7 @@ class Gnuplot
 		///
 		/// \return <-- reference to the gnuplot object
 		// ------------------------------------------------------------------
-        inline Gnuplot& unset_surface(){cmd("unset surface"); return *this;};
+        inline Gnuplot& unset_surface(){cmd("unset surface"); return *this;}
 
 
         /// switches legend on/off
@@ -303,7 +316,7 @@ class Gnuplot
 		///
 		/// \return <-- reference to the gnuplot object
 		// ------------------------------------------------------------------
-        inline Gnuplot& unset_legend(){cmd("unset key"); return *this;};
+        inline Gnuplot& unset_legend(){cmd("unset key"); return *this;}
 
 		// ----------------------------------------------------------------------- 
         /// \brief sets and clears the title of a gnuplot session
@@ -313,7 +326,14 @@ class Gnuplot
 		/// \return <-- reference to the gnuplot object
 		// ----------------------------------------------------------------------- 
         inline Gnuplot& set_title(const std::string &title = "")
-		{std::string cmdstr;cmdstr = "set title \"";cmdstr+=title;cmdstr+="\""; *this<<cmdstr; return *this;};
+		{
+            std::string cmdstr;
+            cmdstr = "set title \"";
+            cmdstr+=title;
+            cmdstr+="\"";
+            *this<<cmdstr;
+            return *this;
+        }
 
 		//----------------------------------------------------------------------------------
 		///\brief Clears the title of a gnuplot session
@@ -323,7 +343,7 @@ class Gnuplot
 		///
 		/// \return <-- reference to the gnuplot object
 		// ---------------------------------------------------------------------------------
-        inline Gnuplot& unset_title(){this->set_title();return *this;}; 
+        inline Gnuplot& unset_title(){this->set_title();return *this;}
 
 
         /// set x axis label
@@ -509,6 +529,9 @@ class Gnuplot
 
         /// resets a gnuplot session and sets all variables to default
         Gnuplot& reset_all();
+
+        /// deletes temporary files
+        void remove_tmpfiles();
 
 		// -------------------------------------------------------------------
 		/// \brief Is the gnuplot session valid ??
@@ -749,9 +772,7 @@ Gnuplot& Gnuplot::plot_xyz(const X &x,
     // write the data to file
     //
     for (unsigned int i = 0; i < x.size(); i++)
-    {
         tmp << x[i] << " " << y[i] << " " << z[i] <<std::endl;
-    }
 
     tmp.flush();
     tmp.close();

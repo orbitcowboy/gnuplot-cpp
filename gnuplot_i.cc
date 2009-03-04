@@ -54,6 +54,7 @@
 ///////////////////////////////////////////////////////////
 
 
+#include <iostream>
 #include <fstream>              // for std::ifstream
 #include <sstream>              // for std::ostringstream
 #include <list>                 // for std::list
@@ -192,13 +193,7 @@ void stringtok (Container &container,
 //
 Gnuplot::~Gnuplot()
 {
-    if ((tmpfile_list).size() > 0)
-    {
-        for (unsigned int i = 0; i < tmpfile_list.size(); i++)
-            remove( tmpfile_list[i].c_str() );
-
-        Gnuplot::tmpfile_num -= tmpfile_list.size();
-    }
+//  remove_tmpfiles();
 
     // A stream opened by popen() should be closed by pclose()
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
@@ -216,14 +211,7 @@ Gnuplot::~Gnuplot()
 //
 Gnuplot& Gnuplot::reset_plot()
 {
-    if (tmpfile_list.size() > 0)
-    {
-        for (unsigned int i = 0; i < tmpfile_list.size(); i++)
-            remove(tmpfile_list[i].c_str());
-
-        Gnuplot::tmpfile_num -= tmpfile_list.size();
-        tmpfile_list.clear();
-    }
+//  remove_tmpfiles();
 
     nplots = 0;
 
@@ -237,14 +225,7 @@ Gnuplot& Gnuplot::reset_plot()
 //
 Gnuplot& Gnuplot::reset_all()
 {
-    if (tmpfile_list.size() > 0)
-    {
-        for (unsigned int i = 0; i < tmpfile_list.size(); i++)
-            remove(tmpfile_list[i].c_str());
-
-        Gnuplot::tmpfile_num -= tmpfile_list.size();
-        tmpfile_list.clear();
-    }
+//  remove_tmpfiles();
 
     nplots = 0;
     cmd("reset");
@@ -685,16 +666,7 @@ Gnuplot& Gnuplot::plotfile_x(const std::string &filename,
     //
     // check if file exists
     //
-    if( !(Gnuplot::file_exists(filename,4)) ) // check existence and read permission
-    {
-        std::ostringstream except;
-        if( !(Gnuplot::file_exists(filename,0)) ) // check existence
-            except << "File \"" << filename << "\" does not exist";
-        else
-            except << "No read permission for File \"" << filename << "\"";
-        throw GnuplotException( except.str() );
-        return *this;
-    }
+    file_available(filename);
 
 
     std::ostringstream cmdstr;
@@ -740,16 +712,7 @@ Gnuplot& Gnuplot::plotfile_xy(const std::string &filename,
     //
     // check if file exists
     //
-    if( !(Gnuplot::file_exists(filename,4)) ) // check existence and read permission
-    {
-        std::ostringstream except;
-        if( !(Gnuplot::file_exists(filename,0)) ) // check existence
-            except << "File \"" << filename << "\" does not exist";
-        else
-            except << "No read permission for File \"" << filename << "\"";
-        throw GnuplotException( except.str() );
-        return *this;
-    }
+    file_available(filename);
 
 
     std::ostringstream cmdstr;
@@ -795,17 +758,7 @@ Gnuplot& Gnuplot::plotfile_xy_err(const std::string &filename,
     //
     // check if file exists
     //
-    if( !(Gnuplot::file_exists(filename,4)) ) // check existence and read permission
-    {
-        std::ostringstream except;
-        if( !(Gnuplot::file_exists(filename,0)) ) // check existence
-            except << "File \"" << filename << "\" does not exist";
-        else
-            except << "No read permission for File \"" << filename << "\"";
-        throw GnuplotException( except.str() );
-        return *this;
-    }
-
+    file_available(filename);
 
     std::ostringstream cmdstr;
     //
@@ -846,17 +799,7 @@ Gnuplot& Gnuplot::plotfile_xyz(const std::string &filename,
     //
     // check if file exists
     //
-    if( !(Gnuplot::file_exists(filename,4)) ) // check existence and read permission
-    {
-        std::ostringstream except;
-        if( !(Gnuplot::file_exists(filename,0)) ) // check existence
-            except << "File \"" << filename << "\" does not exist";
-        else
-            except << "No read permission for File \"" << filename << "\"";
-        throw GnuplotException( except.str() );
-        return *this;
-    }
-
+    file_available(filename);
 
     std::ostringstream cmdstr;
     //
@@ -1150,6 +1093,23 @@ bool Gnuplot::file_exists(const std::string &filename, int mode)
 
 }
 
+bool Gnuplot::file_available(const std::string &filename){
+    std::ostringstream except;
+    if( Gnuplot::file_exists(filename,0) ) // check existence
+    {
+        if( !(Gnuplot::file_exists(filename,4)) ){// check read permission
+            except << "No read permission for File \"" << filename << "\"";
+            throw GnuplotException( except.str() );
+            return false;
+        }
+    }
+    else{
+        except << "File \"" << filename << "\" does not exist";
+        throw GnuplotException( except.str() );
+        return false;
+    }
+}
+
 
 
 //----------------------------------------------------------------------------------
@@ -1218,4 +1178,14 @@ std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
     Gnuplot::tmpfile_num++;
 
     return name;
+}
+
+void Gnuplot::remove_tmpfiles(){
+    if ((tmpfile_list).size() > 0)
+    {
+        for (unsigned int i = 0; i < tmpfile_list.size(); i++)
+            remove( tmpfile_list[i].c_str() );
+
+        Gnuplot::tmpfile_num -= tmpfile_list.size();
+    }
 }
