@@ -551,6 +551,8 @@ class Gnuplot
 // constructor: set a style during construction
 //
 inline Gnuplot::Gnuplot(const std::string &style)
+			   :gnucmd(NULL) ,valid(false) ,two_dim(false) ,nplots(0)
+
 {
     init();
     set_style(style);
@@ -565,6 +567,7 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
                  const std::string &style,
                  const std::string &labelx,
                  const std::string &labely)
+			   :gnucmd(NULL) ,valid(false) ,two_dim(false) ,nplots(0)
 {
     init();
 
@@ -586,6 +589,7 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
                  const std::string &style,
                  const std::string &labelx,
                  const std::string &labely)
+			   :gnucmd(NULL) ,valid(false) ,two_dim(false) ,nplots(0)
 {
     init();
 
@@ -609,6 +613,7 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
                  const std::string &labelx,
                  const std::string &labely,
                  const std::string &labelz)
+			   :gnucmd(NULL) ,valid(false) ,two_dim(false) ,nplots(0)
 {
     init();
 
