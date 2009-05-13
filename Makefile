@@ -2,8 +2,7 @@ CFLAGS = -ggdb
 DEFINES = -DDEBUGGA
 INCLUDES = 
 LIBS = -lstdc++
-OBJ = gnuplot_i.o
-EXAMPLE = example.o gnuplot_i.o
+EXAMPLE = example.o
 CC=g++
 
 .cc.o:
@@ -11,8 +10,8 @@ CC=g++
 
 all::	example
 
-gnuplot_i.o:	gnuplot_i.cc gnuplot_i.hpp
-example.o:	example.cc gnuplot_i.cc
+gnuplot_i.o:	gnuplot_i.hpp
+example.o:	example.cc
 
 example: $(EXAMPLE)
 	$(CC) -o $@ $(CFLAGS) $(EXAMPLE) $(LIBS)
