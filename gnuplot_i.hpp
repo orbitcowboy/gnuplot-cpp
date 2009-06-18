@@ -209,14 +209,14 @@ class Gnuplot
 
     /// send a command to gnuplot
         Gnuplot& cmd(const std::string &cmdstr);
-	// ---------------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 	///\brief Sends a command to an active gnuplot session, identical to cmd()
 	/// send a command to gnuplot using the <<  operator
 	///
 	/// \param cmdstr --> the command string
 	/// 
 	/// \return <-- a reference to the gnuplot object	
-	// ---------------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
     inline Gnuplot& operator<<(const std::string &cmdstr){
         cmd(cmdstr);
         return(*this);
@@ -224,17 +224,17 @@ class Gnuplot
 
 
 
-    //----------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     // show on screen or write to file
 
     /// sets terminal type to terminal_std
     Gnuplot& showonscreen(); // window output is set by default (win/x11/aqua)
 
-    /// saves a gnuplot session to a postscript file, filename without extension
-    Gnuplot& savetops(const std::string &filename = "gnuplot_output");
+    /// Saves a gnuplot to a file named filename.  Defaults to saving pdf
+    Gnuplot& savetofigure(const std::string filename, 
+            const std::string terminal="ps");
 
-
-    //----------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     // set and unset
 
     /// set line style (some of these styles require additional information):
@@ -466,7 +466,7 @@ class Gnuplot
     Gnuplot& set_cbrange(const double iFrom, const double iTo);
 
 
-    //----------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     // plot
 
     /// plot a single std::vector: x
@@ -525,21 +525,24 @@ class Gnuplot
                         const std::string &title = "");
 
 
-    /// plot an equation supplied as a std::string y=f(x), write only the function f(x) not y=
-    /// the independent variable has to be x
-    /// binary operators: ** exponentiation, * multiply, / divide, + add, - substract, % modulo
+    /// plot an equation supplied as a std::string y=f(x), write only the 
+    /// function f(x) not y the independent variable has to be x
+    /// binary operators: ** exponentiation, * multiply, / divide, + add, - 
+    ///     substract, % modulo
     /// unary operators: - minus, ! factorial
-    /// elementary functions: rand(x), abs(x), sgn(x), ceil(x), floor(x), int(x), imag(x), real(x), arg(x),
-    ///   sqrt(x), exp(x), log(x), log10(x), sin(x), cos(x), tan(x), asin(x), acos(x), atan(x), atan2(y,x),
+    /// elementary functions: rand(x), abs(x), sgn(x), ceil(x), floor(x), 
+    ///   int(x), imag(x), real(x), arg(x), sqrt(x), exp(x), log(x), log10(x), 
+    ///   sin(x), cos(x), tan(x), asin(x), acos(x), atan(x), atan2(y,x), 
     ///   sinh(x), cosh(x), tanh(x), asinh(x), acosh(x), atanh(x)
-    /// special functions: erf(x), erfc(x), inverf(x), gamma(x), igamma(a,x), lgamma(x), ibeta(p,q,x),
-    ///   besj0(x), besj1(x), besy0(x), besy1(x), lambertw(x)
+    /// special functions: erf(x), erfc(x), inverf(x), gamma(x), igamma(a,x), 
+    ///   lgamma(x), ibeta(p,q,x), besj0(x), besj1(x), besy0(x), besy1(x), 
+    ///   lambertw(x)
     /// statistical fuctions: norm(x), invnorm(x)
     Gnuplot& plot_equation(const std::string &equation,
                            const std::string &title = "");
 
-    /// plot an equation supplied as a std::string z=f(x,y), write only the function f(x,y) not z=
-    /// the independent variables have to be x and y
+    /// plot an equation supplied as a std::string z=f(x,y), write only the 
+    /// function f(x,y) not z the independent variables have to be x and y
     Gnuplot& plot_equation3d(const std::string &equation,
                              const std::string &title = "");
 
@@ -551,15 +554,16 @@ class Gnuplot
                         const std::string &title = "");
 
 
-    //----------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     ///\brief replot repeats the last plot or splot command.
     ///  this can be useful for viewing a plot with different set options,
-    ///  or when generating the same plot for several devices (showonscreen, savetops)
+    ///  or when generating the same plot for several devices (showonscreen, 
+    //   savetofigure)
     /// 
     /// \param ---
     ///
     /// \return ---
-    //----------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     inline Gnuplot& replot(void){if (nplots > 0) cmd("replot");return *this;};
 
     /// resets a gnuplot session (next plot will erase previous ones)
@@ -1074,12 +1078,15 @@ Gnuplot& Gnuplot::showonscreen()
 //
 // saves a gnuplot session to a postscript file
 //
-Gnuplot& Gnuplot::savetops(const std::string &filename)
+Gnuplot& Gnuplot::savetofigure(const std::string filename, 
+        const std::string terminal)
 {
-    cmd("set terminal postscript color");
-
     std::ostringstream cmdstr;
-    cmdstr << "set output \"" << filename << ".ps\"";
+    cmdstr << "set terminal " << terminal;
+    cmd(cmdstr.str() );
+
+    cmdstr.str("");     // Clear cmdstr
+    cmdstr << "set output \"" << filename << "\"";
     cmd(cmdstr.str());
 
     return *this;
@@ -1597,9 +1604,9 @@ Gnuplot& Gnuplot::plot_image(const unsigned char * ucPicBuf,
     // write the data to file
     //
     int iIndex = 0;
-    for(int iRow = 0; iRow < iHeight; iRow++)
+    for(unsigned int iRow = 0; iRow < iHeight; iRow++)
     {
-        for(int iColumn = 0; iColumn < iWidth; iColumn++)
+        for(unsigned int iColumn = 0; iColumn < iWidth; iColumn++)
         {
             tmp << iColumn << " " << iRow  << " " 
                 << static_cast<float>(ucPicBuf[iIndex++]) << std::endl;
@@ -1871,6 +1878,7 @@ bool Gnuplot::file_available(const std::string &filename){
         throw GnuplotException( except.str() );
         return false;
     }
+    return false;
 }
 
 

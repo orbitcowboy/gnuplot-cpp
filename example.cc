@@ -98,7 +98,8 @@ int main(int argc, char* argv[])
         cout << endl << endl << "*** save to ps " << endl;
 
         cout << "y = sin(x) saved to test_output.ps in working directory" << endl;
-        g1.savetops("test_output");
+//      g1.savetops("test_output");
+        g1.savetofigure("test_output.ps", "postscript color");
         g1.set_style("lines").set_samples(300).set_xrange(0,5);
         g1.plot_equation("sin(12*x)*exp(-x)").plot_equation("exp(-x)");
 
