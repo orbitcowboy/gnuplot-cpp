@@ -1361,14 +1361,14 @@ Gnuplot& Gnuplot::plot_equation(const std::string &equation,
     else
         cmdstr << "plot ";
 
-    cmdstr << equation << " title \"";
+    cmdstr << equation;
 
     if (title == "")
-        cmdstr << "f(x) = " << equation;
+        cmdstr << " notitle";
     else
-        cmdstr << title;
+        cmdstr << " title \"" << title << "\"";
 
-    cmdstr << "\" with " << pstyle;
+    cmdstr << " with " << pstyle;
 
     //
     // Do the actual plot
