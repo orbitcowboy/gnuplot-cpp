@@ -8,7 +8,7 @@ CC=g++
 .cc.o:
 	$(CC) -c $(CFLAGS) $(DEFINES) $(INCLUDES) $<
 
-all::	example
+all:  example
 
 gnuplot_i.o:	gnuplot_i.hpp
 example.o:	example.cc
