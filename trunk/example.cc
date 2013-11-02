@@ -24,7 +24,7 @@ void wait_for_key(); // Programm halts until keypress
 using std::cout;
 using std::endl;
 
-int main(int argc, char* argv[])
+int main()
 {
     // if path-variable for gnuplot is not set, do it with:
     // Gnuplot::set_GNUPlotPath("C:/program files/gnuplot/bin/");
