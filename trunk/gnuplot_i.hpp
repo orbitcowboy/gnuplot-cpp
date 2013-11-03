@@ -1932,7 +1932,6 @@ std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
         std::ostringstream except;
         except << "Cannot create temporary file \"" << name << "\"";
         throw GnuplotException(except.str());
-        return "";
     }
 
     tmp.open(name);
@@ -1941,7 +1940,6 @@ std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
         std::ostringstream except;
         except << "Cannot create temporary file \"" << name << "\"";
         throw GnuplotException(except.str());
-        return "";
     }
 
     //
