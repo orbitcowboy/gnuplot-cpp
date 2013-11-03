@@ -10,9 +10,12 @@
 #include "gnuplot_i.hpp" //Gnuplot class handles POSIX-Pipe-communikation with Gnuplot
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
- #include <conio.h>   //for getch(), needed in wait_for_key()
- #include <windows.h> //for Sleep()
- void sleep(int i) { Sleep(i*1000); }
+#include <conio.h>   //for getch(), needed in wait_for_key()
+#include <windows.h> //for Sleep()
+void sleep(int i)
+{
+    Sleep(i*1000);
+}
 #endif
 
 
@@ -118,8 +121,14 @@ int main()
             z.push_back( x[i]*y[i] );           // z[i] = x[i]*y[i] = i^3
             dy.push_back((double)i * (double)i / (double) 10); // dy[i] = i^2 / 10
         }
-        y2.push_back(0.00); y2.push_back(0.78); y2.push_back(0.97); y2.push_back(0.43);
-        y2.push_back(-0.44); y2.push_back(-0.98); y2.push_back(-0.77); y2.push_back(0.02);
+        y2.push_back(0.00);
+        y2.push_back(0.78);
+        y2.push_back(0.97);
+        y2.push_back(0.43);
+        y2.push_back(-0.44);
+        y2.push_back(-0.98);
+        y2.push_back(-0.77);
+        y2.push_back(0.02);
 
 
         g1.reset_all();
