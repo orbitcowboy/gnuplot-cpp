@@ -1954,8 +1954,15 @@ std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
 void Gnuplot::remove_tmpfiles(){
     if ((tmpfile_list).size() > 0)
     {
-        for (unsigned int i = 0; i < tmpfile_list.size(); i++)
-            remove( tmpfile_list[i].c_str() );
+        for (unsigned int i = 0; i < tmpfile_list.size(); i++){
+			
+            if( remove( tmpfile_list[i].c_str() ) != 0 )
+            {
+				std::ostringstream except;
+				except << "Cannot remove temporary file \"" << tmpfile_list[i] << "\"";
+				throw GnuplotException(except.str());				
+			}
+	}
 
         Gnuplot::tmpfile_num -= tmpfile_list.size();
     }
