@@ -114,7 +114,7 @@ int main()
         //
         std::vector<double> x, y, y2, dy, z;
 
-        for (int i = 0; i < NPOINTS; i++)  // fill double arrays x, y, z
+        for (unsigned int i = 0; i < NPOINTS; i++)  // fill double arrays x, y, z
         {
             x.push_back((double)i);             // x[i] = i
             y.push_back((double)i * (double)i); // y[i] = i^2
@@ -211,17 +211,17 @@ int main()
         //
         Gnuplot g9;
         cout << "window 9: plot_image" << endl;
-        const int iWidth  = 255;
-        const int iHeight = 255;
-        g9.set_xrange(0,iWidth).set_yrange(0,iHeight).set_cbrange(0,255);
+        const int unsigned uiWidth  = 255U;
+        const int unsigned uiHeight = 255U;
+        g9.set_xrange(0,uiWidth).set_yrange(0,uiHeight).set_cbrange(0,255);
         g9.cmd("set palette gray");
-        unsigned char ucPicBuf[iWidth*iHeight];
+        unsigned char ucPicBuf[uiWidth*uiHeight];
         // generate a greyscale image
-        for(int iIndex = 0; iIndex < iHeight*iWidth; iIndex++)
+        for(unsigned int uiIndex = 0; uiIndex < uiHeight*uiWidth; uiIndex++)
         {
-            ucPicBuf[iIndex] = iIndex%255;
+            ucPicBuf[uiIndex] = static_cast<unsigned char>(uiIndex%255U);
         }
-        g9.plot_image(ucPicBuf,iWidth,iHeight,"greyscale");
+        g9.plot_image(ucPicBuf,uiWidth,uiHeight,"greyscale");
 
         g9.set_pointsize(0.6).unset_legend().plot_slope(0.8,20);
 
@@ -234,7 +234,6 @@ int main()
         g10 << "replot sqrt(x)" << "replot sqrt(-x)";    // or with <<
 
         wait_for_key();
-
     }
     catch (GnuplotException ge)
     {

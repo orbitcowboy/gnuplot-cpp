@@ -1900,9 +1900,6 @@ bool Gnuplot::get_program_path()
         tmp = "Can't find gnuplot neither in PATH nor in \"" +
               Gnuplot::m_sGNUPlotPath + "\"";
         throw GnuplotException(tmp);
-
-        Gnuplot::m_sGNUPlotPath = "";
-        return false;
     }
 }
 
@@ -1992,7 +1989,6 @@ std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
                << GP_MAX_TMP_FILES << "): cannot open more files" << std::endl;
 
         throw GnuplotException( except.str() );
-        return "";
     }
 
     // int mkstemp(char *name);
@@ -2052,7 +2048,7 @@ void Gnuplot::remove_tmpfiles()
             }
         }
 
-        Gnuplot::tmpfile_num -= tmpfile_list.size();
+        Gnuplot::tmpfile_num -= static_cast<int>(tmpfile_list.size());
     }
 }
 #endif
