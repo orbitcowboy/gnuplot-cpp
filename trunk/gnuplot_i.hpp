@@ -232,8 +232,8 @@ public:
     Gnuplot& showonscreen(); // window output is set by default (win/x11/aqua)
 
     /// Saves a gnuplot to a file named filename.  Defaults to saving pdf
-    Gnuplot& savetofigure(const std::string filename,
-                          const std::string terminal="ps");
+    Gnuplot& savetofigure(const std::string &filename,
+                          const std::string &terminal="ps");
 
     //--------------------------------------------------------------------------
     // set and unset
@@ -1161,8 +1161,8 @@ Gnuplot& Gnuplot::showonscreen()
 //
 // saves a gnuplot session to a postscript file
 //
-Gnuplot& Gnuplot::savetofigure(const std::string filename,
-                               const std::string terminal)
+Gnuplot& Gnuplot::savetofigure(const std::string &filename,
+                               const std::string &terminal)
 {
     std::ostringstream cmdstr;
     cmdstr << "set terminal " << terminal;
