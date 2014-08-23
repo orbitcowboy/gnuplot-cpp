@@ -2008,13 +2008,17 @@ std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
     if (_mktemp(name) == NULL)
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
-    if (mkstemp(name) == -1)
+    int tmpfd;
+    if ((tmpfd = mkstemp(name)) == -1)
 #endif
     {
         std::ostringstream except;
         except << "Cannot create temporary file \"" << name << "\"";
         throw GnuplotException(except.str());
     }
+#if defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
+    close(tmpfd);
+#endif
 
     tmp.open(name);
     if (tmp.bad())
