@@ -32,10 +32,11 @@ int main()
     // if path-variable for gnuplot is not set, do it with:
     // Gnuplot::set_GNUPlotPath("C:/program files/gnuplot/bin/");
 
-    // set a special standard terminal for showonscreen (normally not needed),
-    //   e.g. Mac users who want to use x11 instead of aqua terminal:
-    // Gnuplot::set_terminal_std("x11");
-
+    #if defined(__APPLE__)
+      // set a special standard terminal for showonscreen (normally not needed),
+      //   e.g. Mac users who want to use x11 instead of aqua terminal:
+     Gnuplot::set_terminal_std("x11");
+    #endif 
     cout << "*** example of gnuplot control through C++ ***" << endl << endl;
 
     //
