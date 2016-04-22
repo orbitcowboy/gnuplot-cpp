@@ -19,7 +19,6 @@ void sleep(int i)
 #endif
 
 
-#define SLEEP_LGTH 2  // sleep time in seconds
 #define NPOINTS    50 // length of array
 
 void wait_for_key(); // Programm halts until keypress

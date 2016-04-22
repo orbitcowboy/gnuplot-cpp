@@ -27,8 +27,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef _GNUPLOT_PIPES_H_
-#define _GNUPLOT_PIPES_H_
+#ifndef GNUPLOT_I_HPP
+#define GNUPLOT_I_HPP
 
 
 #include <iostream>
@@ -101,35 +101,28 @@ private:
     // member functions (auxiliary functions)
     // ---------------------------------------------------
     ///\brief get_program_path(); and popen();
-    ///
-    /// \param --> void
-    ///
-    /// \return <-- void
     // ---------------------------------------------------
     void           init();
     // ---------------------------------------------------
     ///\brief creates tmpfile and returns its name
     ///
-    /// \param tmp --> points to the tempfile
+    /// \param tmp   points to the tempfile
     ///
-    /// \return <-- the name of the tempfile
+    /// \return   the name of the tempfile
     // ---------------------------------------------------
     std::string    create_tmpfile(std::ofstream &tmp);
 
     //----------------------------------------------------------------------------------
     ///\brief gnuplot path found?
     ///
-    /// \param ---
-    ///
-    /// \return <-- found the gnuplot path (yes == true, no == false)
+    /// \return found the gnuplot path (yes == true, no == false)
     // ---------------------------------------------------------------------------------
     static bool    get_program_path();
 
     // ---------------------------------------------------------------------------------
     ///\brief checks if file is available
     ///
-    /// \param filename --> the filename
-    /// \param mode 	--> the mode [optional,default value = 0]
+    /// \param filename   the filename
     ///
     /// \return file exists (yes == true, no == false)
     // ---------------------------------------------------------------------------------
@@ -138,8 +131,8 @@ private:
     // ---------------------------------------------------------------------------------
     ///\brief checks if file exists
     ///
-    /// \param filename --> the filename
-    /// \param mode 	--> the mode [optional,default value = 0]
+    /// \param filename   the filename
+    /// \param mode 	  the mode [optional,default value = 0]
     ///
     /// \return file exists (yes == true, no == false)
     // ---------------------------------------------------------------------------------
@@ -151,7 +144,7 @@ public:
     /// \brief optional function: set Gnuplot path manual
     /// attention:  for windows: path with slash '/' not backslash '\'
     ///
-    /// \param path --> the gnuplot path
+    /// \param path   the gnuplot path
     ///
     /// \return true on success, false otherwise
     // ----------------------------------------------------------------------------
@@ -162,9 +155,7 @@ public:
     /// optional: set standart terminal, used by showonscreen
     ///   defaults: Windows - win, Linux - x11, Mac - aqua
     ///
-    /// \param type --> the terminal type
-    ///
-    /// \return ---
+    /// \param type   the terminal type
     // ----------------------------------------------------------------------------
     static void set_terminal_std(const std::string &type);
 
@@ -213,9 +204,9 @@ public:
     ///\brief Sends a command to an active gnuplot session, identical to cmd()
     /// send a command to gnuplot using the <<  operator
     ///
-    /// \param cmdstr --> the command string
+    /// \param cmdstr   the command string
     ///
-    /// \return <-- a reference to the gnuplot object
+    /// \return   a reference to the gnuplot object
     // -------------------------------------------------------------------------
     inline Gnuplot& operator<<(const std::string &cmdstr)
     {
@@ -253,16 +244,13 @@ public:
     /// \brief unset smooth
     /// attention: smooth is not set by default
     ///
-    /// \param ---
-    ///
-    /// \return <-- a reference to a gnuplot object
+    /// \return   a reference to a gnuplot object
     // ----------------------------------------------------------------------
     inline Gnuplot& unset_smooth()
     {
         smooth = "";
         return *this;
-    };
-
+    }
 
     /// scales the size of the points used in plots
     Gnuplot& set_pointsize(const double pointsize = 1.0);
@@ -272,39 +260,35 @@ public:
     {
         cmd("set grid");
         return *this;
-    };
+    }
     /// grid is not set by default
     inline Gnuplot& unset_grid()
     {
         cmd("unset grid");
         return *this;
-    };
+    }
 
     // -----------------------------------------------
     /// set the mulitplot mode
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // -----------------------------------------------
     inline Gnuplot& set_multiplot()
     {
         cmd("set multiplot") ;
         return *this;
-    };
+    }
 
     // -----------------------------------------------
     /// unsets the mulitplot mode
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // -----------------------------------------------
     inline Gnuplot& unset_multiplot()
     {
         cmd("unset multiplot");
         return *this;
-    };
+    }
 
 
 
@@ -316,28 +300,24 @@ public:
     // --------------------------------------------------------------------------
     /// enables/disables hidden line removal for surface plotting (for 3d plot)
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // --------------------------------------------------------------------------
     Gnuplot& set_hidden3d()
     {
         cmd("set hidden3d");
         return *this;
-    };
+    }
 
     // ---------------------------------------------------------------------------
     /// hidden3d is not set by default
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // ---------------------------------------------------------------------------
     inline Gnuplot& unset_hidden3d()
     {
         cmd("unset hidden3d");
         return *this;
-    };
+    }
 
     /// enables/disables contour drawing for surfaces (for 3d plot)
     ///  base, surface, both
@@ -345,36 +325,30 @@ public:
     // --------------------------------------------------------------------------
     /// contour is not set by default, it disables contour drawing for surfaces
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // ------------------------------------------------------------------
     inline Gnuplot& unset_contour()
     {
         cmd("unset contour");
         return *this;
-    };
+    }
 
     // ------------------------------------------------------------
     /// enables/disables the display of surfaces (for 3d plot)
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // ------------------------------------------------------------------
     inline Gnuplot& set_surface()
     {
         cmd("set surface");
         return *this;
-    };
+    }
 
     // ----------------------------------------------------------
     /// surface is set by default,
     /// it disables the display of surfaces (for 3d plot)
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // ------------------------------------------------------------------
     inline Gnuplot& unset_surface()
     {
@@ -391,9 +365,7 @@ public:
     /// \brief  Switches legend off
     /// attention:legend is set by default
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // ------------------------------------------------------------------
     inline Gnuplot& unset_legend()
     {
@@ -404,9 +376,9 @@ public:
     // -----------------------------------------------------------------------
     /// \brief sets and clears the title of a gnuplot session
     ///
-    /// \param title --> the title of the plot [optional, default == ""]
+    /// \param title   the title of the plot [optional, default == ""]
     ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // -----------------------------------------------------------------------
     inline Gnuplot& set_title(const std::string &title = "")
     {
@@ -422,9 +394,7 @@ public:
     ///\brief Clears the title of a gnuplot session
     /// The title is not set by default.
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // ---------------------------------------------------------------------------------
     inline Gnuplot& unset_title()
     {
@@ -451,44 +421,38 @@ public:
                         const double iTo);
     /// autoscale axis (set by default) of xaxis
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // -----------------------------------------------
     inline Gnuplot& set_xautoscale()
     {
         cmd("set xrange restore");
         cmd("set autoscale x");
         return *this;
-    };
+    }
 
     // -----------------------------------------------
     /// autoscale axis (set by default) of yaxis
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // -----------------------------------------------
     inline Gnuplot& set_yautoscale()
     {
         cmd("set yrange restore");
         cmd("set autoscale y");
         return *this;
-    };
+    }
 
     // -----------------------------------------------
     /// autoscale axis (set by default) of zaxis
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // -----------------------------------------------
     inline Gnuplot& set_zautoscale()
     {
         cmd("set zrange restore");
         cmd("set autoscale z");
         return *this;
-    };
+    }
 
 
     /// turns on/off log scaling for the specified xaxis (logscale is not set by default)
@@ -501,42 +465,35 @@ public:
     // -----------------------------------------------
     /// turns off log scaling for the x axis
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // -----------------------------------------------
     inline Gnuplot& unset_xlogscale()
     {
         cmd("unset logscale x");
         return *this;
-    };
+    }
 
     // -----------------------------------------------
     /// turns off log scaling for the y axis
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // -----------------------------------------------
     inline Gnuplot& unset_ylogscale()
     {
         cmd("unset logscale y");
         return *this;
-    };
+    }
 
     // -----------------------------------------------
     /// turns off log scaling for the z axis
     ///
-    /// \param ---
-    ///
-    /// \return <-- reference to the gnuplot object
+    /// \return   reference to the gnuplot object
     // -----------------------------------------------
     inline Gnuplot& unset_zlogscale()
     {
         cmd("unset logscale z");
         return *this;
-    };
-
+    }
 
     /// set palette range (autoscale by default)
     Gnuplot& set_cbrange(const double iFrom, const double iTo);
@@ -634,9 +591,7 @@ public:
     ///\brief replot repeats the last plot or splot command.
     ///  this can be useful for viewing a plot with different set options,
     ///  or when generating the same plot for several devices (showonscreen,
-    //   savetofigure)
-    ///
-    /// \param ---
+    ///  savetofigure)
     ///
     /// \return ---
     //--------------------------------------------------------------------------
@@ -644,7 +599,7 @@ public:
     {
         if (nplots > 0) cmd("replot");
         return *this;
-    };
+    }
 
     /// resets a gnuplot session (next plot will erase previous ones)
     Gnuplot& reset_plot();
@@ -658,16 +613,12 @@ public:
     // -------------------------------------------------------------------
     /// \brief Is the gnuplot session valid ??
     ///
-    ///
-    /// \param ---
-    ///
     /// \return true if valid, false if not
     // -------------------------------------------------------------------
     inline bool is_valid()
     {
         return(valid);
-    };
-
+    }
 };
 
 //------------------------------------------------------------------------------
@@ -2055,4 +2006,4 @@ void Gnuplot::remove_tmpfiles()
         Gnuplot::tmpfile_num -= static_cast<int>(tmpfile_list.size());
     }
 }
-#endif
+#endif // GNUPLOT_I_HPP
