@@ -7,7 +7,7 @@
 
 
 #include <iostream>
-#include "gnuplot_i.hpp" //Gnuplot class handles POSIX-Pipe-communikation with Gnuplot
+#include "gnuplot_i.hpp" //Gnuplot class handles POSIX-Pipe-communication with Gnuplot
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
 #include <conio.h>   //for getch(), needed in wait_for_key()
@@ -21,7 +21,7 @@ void sleep(int i)
 
 #define NPOINTS    50 // length of array
 
-void wait_for_key(); // Programm halts until keypress
+void wait_for_key(); // Program halts until keypress
 
 using std::cout;
 using std::endl;

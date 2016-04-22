@@ -94,7 +94,7 @@ private:
     static std::string       m_sGNUPlotFileName;
     ///\brief gnuplot path
     static std::string       m_sGNUPlotPath;
-    ///\brief standart terminal, used by showonscreen
+    ///\brief standard terminal, used by showonscreen
     static std::string       terminal_std;
 
     //----------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ public:
 
 
     // ----------------------------------------------------------------------------
-    /// optional: set standart terminal, used by showonscreen
+    /// optional: set standard terminal, used by showonscreen
     ///   defaults: Windows - win, Linux - x11, Mac - aqua
     ///
     /// \param type   the terminal type
@@ -237,7 +237,7 @@ public:
     /// interpolation and approximation of data, arguments:
     ///  csplines, bezier, acsplines (for data values > 0), sbezier, unique, frequency
     /// (works only with plot_x, plot_xy, plotfile_x, plotfile_xy
-    /// (if smooth is set, set_style has no effekt on data plotting)
+    /// (if smooth is set, set_style has no effect on data plotting)
     Gnuplot& set_smooth(const std::string &stylestr = "csplines");
 
     // ----------------------------------------------------------------------
@@ -269,7 +269,7 @@ public:
     }
 
     // -----------------------------------------------
-    /// set the mulitplot mode
+    /// set the multiplot mode
     ///
     /// \return   reference to the gnuplot object
     // -----------------------------------------------
@@ -280,7 +280,7 @@ public:
     }
 
     // -----------------------------------------------
-    /// unsets the mulitplot mode
+    /// unsets the multiplot mode
     ///
     /// \return   reference to the gnuplot object
     // -----------------------------------------------
@@ -561,7 +561,7 @@ public:
     /// plot an equation supplied as a std::string y=f(x), write only the
     /// function f(x) not y the independent variable has to be x
     /// binary operators: ** exponentiation, * multiply, / divide, + add, -
-    ///     substract, % modulo
+    ///     subtract, % modulo
     /// unary operators: - minus, ! factorial
     /// elementary functions: rand(x), abs(x), sgn(x), ceil(x), floor(x),
     ///   int(x), imag(x), real(x), arg(x), sqrt(x), exp(x), log(x), log10(x),
@@ -570,7 +570,7 @@ public:
     /// special functions: erf(x), erfc(x), inverf(x), gamma(x), igamma(a,x),
     ///   lgamma(x), ibeta(p,q,x), besj0(x), besj1(x), besy0(x), besy1(x),
     ///   lambertw(x)
-    /// statistical fuctions: norm(x), invnorm(x)
+    /// statistical functions: norm(x), invnorm(x)
     Gnuplot& plot_equation(const std::string &equation,
                            const std::string &title = "");
 
@@ -916,7 +916,7 @@ bool Gnuplot::set_GNUPlotPath(const std::string &path)
 
 //------------------------------------------------------------------------------
 //
-// define static member function: set standart terminal, used by showonscreen
+// define static member function: set default terminal, used by showonscreen
 //  defaults: Windows - win, Linux - x11, Mac - aqua
 //
 void Gnuplot::set_terminal_std(const std::string &type)
@@ -1009,7 +1009,7 @@ Gnuplot& Gnuplot::reset_plot()
 
 //------------------------------------------------------------------------------
 //
-// resets a gnuplot session and sets all varibles to default
+// resets a gnuplot session and sets all variables to default
 //
 Gnuplot& Gnuplot::reset_all()
 {
