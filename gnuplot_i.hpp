@@ -30,17 +30,14 @@
 #ifndef GNUPLOT_I_HPP
 #define GNUPLOT_I_HPP
 
-
 #include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
 #include <sstream>              // for std::ostringstream
 #include <stdexcept>
-#include <cstdio>
 #include <cstdlib>              // for getenv()
 #include <list>                 // for std::list
-
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
 //defined for 32 and 64-bit environments
