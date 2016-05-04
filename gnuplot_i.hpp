@@ -207,8 +207,7 @@ public:
     // -------------------------------------------------------------------------
     inline Gnuplot& operator<<(const std::string &cmdstr)
     {
-        cmd(cmdstr);
-        return(*this);
+        return cmd(cmdstr);
     }
 
 
@@ -255,14 +254,12 @@ public:
     /// turns grid on/off
     inline Gnuplot& set_grid()
     {
-        cmd("set grid");
-        return *this;
+        return cmd("set grid");
     }
     /// grid is not set by default
     inline Gnuplot& unset_grid()
     {
-        cmd("unset grid");
-        return *this;
+        return cmd("unset grid");
     }
 
     // -----------------------------------------------
@@ -272,8 +269,7 @@ public:
     // -----------------------------------------------
     inline Gnuplot& set_multiplot()
     {
-        cmd("set multiplot") ;
-        return *this;
+        return cmd("set multiplot");
     }
 
     // -----------------------------------------------
@@ -283,11 +279,8 @@ public:
     // -----------------------------------------------
     inline Gnuplot& unset_multiplot()
     {
-        cmd("unset multiplot");
-        return *this;
+        return cmd("unset multiplot");
     }
-
-
 
     /// set sampling rate of functions, or for interpolating data
     Gnuplot& set_samples(const int samples = 100);
@@ -301,8 +294,7 @@ public:
     // --------------------------------------------------------------------------
     Gnuplot& set_hidden3d()
     {
-        cmd("set hidden3d");
-        return *this;
+        return cmd("set hidden3d");
     }
 
     // ---------------------------------------------------------------------------
@@ -312,8 +304,7 @@ public:
     // ---------------------------------------------------------------------------
     inline Gnuplot& unset_hidden3d()
     {
-        cmd("unset hidden3d");
-        return *this;
+        return cmd("unset hidden3d");
     }
 
     /// enables/disables contour drawing for surfaces (for 3d plot)
@@ -326,8 +317,7 @@ public:
     // ------------------------------------------------------------------
     inline Gnuplot& unset_contour()
     {
-        cmd("unset contour");
-        return *this;
+        return cmd("unset contour");
     }
 
     // ------------------------------------------------------------
@@ -337,8 +327,7 @@ public:
     // ------------------------------------------------------------------
     inline Gnuplot& set_surface()
     {
-        cmd("set surface");
-        return *this;
+        return cmd("set surface");
     }
 
     // ----------------------------------------------------------
@@ -349,8 +338,7 @@ public:
     // ------------------------------------------------------------------
     inline Gnuplot& unset_surface()
     {
-        cmd("unset surface");
-        return *this;
+        return cmd("unset surface");
     }
 
 
@@ -366,8 +354,7 @@ public:
     // ------------------------------------------------------------------
     inline Gnuplot& unset_legend()
     {
-        cmd("unset key");
-        return *this;
+        return cmd("unset key");
     }
 
     // -----------------------------------------------------------------------
@@ -393,10 +380,9 @@ public:
     ///
     /// \return   reference to the gnuplot object
     // ---------------------------------------------------------------------------------
-    inline Gnuplot& unset_title()
+    inline Gnuplot& unset_title(void)
     {
-        this->set_title();
-        return *this;
+        return this->set_title();
     }
 
 
@@ -422,9 +408,8 @@ public:
     // -----------------------------------------------
     inline Gnuplot& set_xautoscale()
     {
-        cmd("set xrange restore");
-        cmd("set autoscale x");
-        return *this;
+        (void)cmd("set xrange restore");
+        return cmd("set autoscale x");
     }
 
     // -----------------------------------------------
@@ -434,9 +419,8 @@ public:
     // -----------------------------------------------
     inline Gnuplot& set_yautoscale()
     {
-        cmd("set yrange restore");
-        cmd("set autoscale y");
-        return *this;
+        (void)cmd("set yrange restore");
+        return cmd("set autoscale y");
     }
 
     // -----------------------------------------------
@@ -446,9 +430,8 @@ public:
     // -----------------------------------------------
     inline Gnuplot& set_zautoscale()
     {
-        cmd("set zrange restore");
-        cmd("set autoscale z");
-        return *this;
+        (void)cmd("set zrange restore");
+        return cmd("set autoscale z");
     }
 
 
@@ -466,8 +449,7 @@ public:
     // -----------------------------------------------
     inline Gnuplot& unset_xlogscale()
     {
-        cmd("unset logscale x");
-        return *this;
+        return cmd("unset logscale x");
     }
 
     // -----------------------------------------------
@@ -477,8 +459,7 @@ public:
     // -----------------------------------------------
     inline Gnuplot& unset_ylogscale()
     {
-        cmd("unset logscale y");
-        return *this;
+        return cmd("unset logscale y");
     }
 
     // -----------------------------------------------
@@ -488,8 +469,7 @@ public:
     // -----------------------------------------------
     inline Gnuplot& unset_zlogscale()
     {
-        cmd("unset logscale z");
-        return *this;
+        return cmd("unset logscale z");
     }
 
     /// set palette range (autoscale by default)
@@ -594,7 +574,10 @@ public:
     //--------------------------------------------------------------------------
     inline Gnuplot& replot(void)
     {
-        if (nplots > 0) cmd("replot");
+        if (nplots > 0) 
+        { 
+            return cmd("replot"); 
+        }
         return *this;
     }
 
@@ -649,7 +632,7 @@ inline Gnuplot::Gnuplot(const std::string &style)
 
 {
     init();
-    set_style(style);
+    (void)set_style(style);
 }
 
 //------------------------------------------------------------------------------
@@ -665,11 +648,11 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
 {
     init();
 
-    set_style(style);
-    set_xlabel(labelx);
-    set_ylabel(labely);
+    (void)set_style(style);
+    (void)set_xlabel(labelx);
+    (void)set_ylabel(labely);
 
-    plot_x(x,title);
+    (void)plot_x(x,title);
 }
 
 
@@ -687,11 +670,11 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
 {
     init();
 
-    set_style(style);
-    set_xlabel(labelx);
-    set_ylabel(labely);
+    (void)set_style(style);
+    (void)set_xlabel(labelx);
+    (void)set_ylabel(labely);
 
-    plot_xy(x,y,title);
+    (void)plot_xy(x,y,title);
 }
 
 
@@ -711,12 +694,12 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
 {
     init();
 
-    set_style(style);
-    set_xlabel(labelx);
-    set_ylabel(labely);
-    set_zlabel(labelz);
+    (void)set_style(style);
+    (void)set_xlabel(labelx);
+    (void)set_ylabel(labely);
+    (void)set_zlabel(labelz);
 
-    plot_xyz(x,y,z,title);
+    (void)plot_xyz(x,y,z,title);
 }
 
 
@@ -1013,8 +996,8 @@ Gnuplot& Gnuplot::reset_all()
 //  remove_tmpfiles();
 
     nplots = 0;
-    cmd("reset");
-    cmd("clear");
+    (void)cmd("reset");
+    (void)cmd("clear");
     pstyle = "points";
     smooth = "";
     showonscreen();
@@ -1099,10 +1082,8 @@ Gnuplot& Gnuplot::set_smooth(const std::string &stylestr)
 //
 Gnuplot& Gnuplot::showonscreen()
 {
-    cmd("set output");
-    cmd("set terminal " + Gnuplot::terminal_std);
-
-    return *this;
+    (void)cmd("set output");
+    return cmd("set terminal " + Gnuplot::terminal_std);
 }
 
 //------------------------------------------------------------------------------
@@ -1114,13 +1095,11 @@ Gnuplot& Gnuplot::savetofigure(const std::string &filename,
 {
     std::ostringstream cmdstr;
     cmdstr << "set terminal " << terminal;
-    cmd(cmdstr.str() );
+    (void)cmd(cmdstr.str() );
 
     cmdstr.str("");     // Clear cmdstr
     cmdstr << "set output \"" << filename << "\"";
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1132,9 +1111,7 @@ Gnuplot& Gnuplot::set_legend(const std::string &position)
     std::ostringstream cmdstr;
     cmdstr << "set key " << position;
 
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1146,9 +1123,7 @@ Gnuplot& Gnuplot::set_xlogscale(const double base)
     std::ostringstream cmdstr;
 
     cmdstr << "set logscale x " << base;
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1160,9 +1135,7 @@ Gnuplot& Gnuplot::set_ylogscale(const double base)
     std::ostringstream cmdstr;
 
     cmdstr << "set logscale y " << base;
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1174,9 +1147,7 @@ Gnuplot& Gnuplot::set_zlogscale(const double base)
     std::ostringstream cmdstr;
 
     cmdstr << "set logscale z " << base;
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1186,10 +1157,9 @@ Gnuplot& Gnuplot::set_zlogscale(const double base)
 Gnuplot& Gnuplot::set_pointsize(const double pointsize)
 {
     std::ostringstream cmdstr;
-    cmdstr << "set pointsize " << pointsize;
-    cmd(cmdstr.str());
 
-    return *this;
+    cmdstr << "set pointsize " << pointsize;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1200,9 +1170,7 @@ Gnuplot& Gnuplot::set_samples(const int samples)
 {
     std::ostringstream cmdstr;
     cmdstr << "set samples " << samples;
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 
@@ -1214,9 +1182,7 @@ Gnuplot& Gnuplot::set_isosamples(const int isolines)
 {
     std::ostringstream cmdstr;
     cmdstr << "set isosamples " << isolines;
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 
@@ -1231,14 +1197,10 @@ Gnuplot& Gnuplot::set_contour(const std::string &position)
             position.find("surface") == std::string::npos  &&
             position.find("both")    == std::string::npos  )
     {
-        cmd("set contour base");
-    }
-    else
-    {
-        cmd("set contour " + position);
+        return cmd("set contour base");
     }
 
-    return *this;
+    return cmd("set contour " + position);
 }
 
 //------------------------------------------------------------------------------
@@ -1251,9 +1213,7 @@ Gnuplot& Gnuplot::set_xlabel(const std::string &label)
     std::ostringstream cmdstr;
 
     cmdstr << "set xlabel \"" << label << "\"";
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1264,9 +1224,7 @@ Gnuplot& Gnuplot::set_ylabel(const std::string &label)
     std::ostringstream cmdstr;
 
     cmdstr << "set ylabel \"" << label << "\"";
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1277,9 +1235,7 @@ Gnuplot& Gnuplot::set_zlabel(const std::string &label)
     std::ostringstream cmdstr;
 
     cmdstr << "set zlabel \"" << label << "\"";
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1293,9 +1249,7 @@ Gnuplot& Gnuplot::set_xrange(const double iFrom,
     std::ostringstream cmdstr;
 
     cmdstr << "set xrange[" << iFrom << ":" << iTo << "]";
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1307,9 +1261,7 @@ Gnuplot& Gnuplot::set_yrange(const double iFrom,
     std::ostringstream cmdstr;
 
     cmdstr << "set yrange[" << iFrom << ":" << iTo << "]";
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1321,9 +1273,7 @@ Gnuplot& Gnuplot::set_zrange(const double iFrom,
     std::ostringstream cmdstr;
 
     cmdstr << "set zrange[" << iFrom << ":" << iTo << "]";
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1336,9 +1286,7 @@ Gnuplot& Gnuplot::set_cbrange(const double iFrom,
     std::ostringstream cmdstr;
 
     cmdstr << "set cbrange[" << iFrom << ":" << iTo << "]";
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1371,9 +1319,7 @@ Gnuplot& Gnuplot::plot_slope(const double a,
     //
     // Do the actual plot
     //
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1404,9 +1350,7 @@ Gnuplot& Gnuplot::plot_equation(const std::string &equation,
     //
     // Do the actual plot
     //
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 //------------------------------------------------------------------------------
@@ -1437,9 +1381,7 @@ Gnuplot& Gnuplot::plot_equation3d(const std::string &equation,
     //
     // Do the actual plot
     //
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 
@@ -1455,7 +1397,6 @@ Gnuplot& Gnuplot::plotfile_x(const std::string &filename,
     // check if file exists
     //
     file_available(filename);
-
 
     std::ostringstream cmdstr;
     //
@@ -1481,9 +1422,7 @@ Gnuplot& Gnuplot::plotfile_x(const std::string &filename,
     //
     // Do the actual plot
     //
-    cmd(cmdstr.str()); //nplots++; two_dim = true;  already in cmd();
-
-    return *this;
+    return cmd(cmdstr.str()); //nplots++; two_dim = true;  already in cmd();
 }
 
 
@@ -1501,7 +1440,6 @@ Gnuplot& Gnuplot::plotfile_xy(const std::string &filename,
     // check if file exists
     //
     file_available(filename);
-
 
     std::ostringstream cmdstr;
     //
@@ -1527,9 +1465,7 @@ Gnuplot& Gnuplot::plotfile_xy(const std::string &filename,
     //
     // Do the actual plot
     //
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 
@@ -1569,9 +1505,7 @@ Gnuplot& Gnuplot::plotfile_xy_err(const std::string &filename,
     //
     // Do the actual plot
     //
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 
@@ -1610,9 +1544,7 @@ Gnuplot& Gnuplot::plotfile_xyz(const std::string &filename,
     //
     // Do the actual plot
     //
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 
@@ -1647,7 +1579,6 @@ Gnuplot& Gnuplot::plot_image(const unsigned char * ucPicBuf,
     tmp.flush();
     tmp.close();
 
-
     std::ostringstream cmdstr;
     //
     // command to be sent to gnuplot
@@ -1665,9 +1596,7 @@ Gnuplot& Gnuplot::plot_image(const unsigned char * ucPicBuf,
     //
     // Do the actual plot
     //
-    cmd(cmdstr.str());
-
-    return *this;
+    return cmd(cmdstr.str());
 }
 
 
