@@ -123,7 +123,7 @@ private:
     ///
     /// \return file exists (yes == true, no == false)
     // ---------------------------------------------------------------------------------
-    bool file_available(const std::string &filename);
+    static bool file_available(const std::string &filename);
 
     // ---------------------------------------------------------------------------------
     ///\brief checks if file exists
