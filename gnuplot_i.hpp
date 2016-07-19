@@ -590,14 +590,12 @@ public:
     /// deletes temporary files
     void remove_tmpfiles();
 
-    // -------------------------------------------------------------------
     /// \brief Is the gnuplot session valid ??
     ///
     /// \return true if valid, false if not
-    // -------------------------------------------------------------------
-    inline bool is_valid()
+    inline bool is_valid() const
     {
-        return(valid);
+        return valid;
     }
 };
 
