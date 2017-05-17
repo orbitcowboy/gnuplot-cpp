@@ -1804,18 +1804,10 @@ bool Gnuplot::file_exists(const std::string &filename, int mode)
     // mode = 6       : read and write permission
     // mode = 7       : read, write and execution permission
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
-    if (_access(filename.c_str(), mode) == 0)
+    return (_access(filename.c_str(), mode) == 0);
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
-    if (access(filename.c_str(), mode) == 0)
+    return (access(filename.c_str(), mode) == 0);
 #endif
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
 }
 
 bool Gnuplot::file_available(const std::string &filename)
@@ -1847,11 +1839,10 @@ bool Gnuplot::file_available(const std::string &filename)
 //
 std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
 {
-
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
-    char name[] = "gnuplotiXXXXXX"; //tmp file in working directory
+    char name[] = {'g','n','u','p','l','o','t','i','X','X','X','X',',X','X'}; //tmp file in working directory
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
-    char name[] = "/tmp/gnuplotiXXXXXX"; // tmp file in /tmp
+    char name[] = {'/','t','m','p','/','g','n','u','p','l','o','t','i','X','X','X','X','X','X'}; // tmp file in /tmp
 #endif
 
     //
