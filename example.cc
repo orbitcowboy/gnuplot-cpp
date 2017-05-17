@@ -24,7 +24,7 @@ void sleep(int i)
 
 #define NPOINTS    50 // length of array
 
-void wait_for_key(); // Program halts until keypress
+static void wait_for_key(); // Program halts until keypress
 
 using std::cout;
 using std::endl;
@@ -251,15 +251,15 @@ int main()
 
 
 
-void wait_for_key ()
+static void wait_for_key ()
 {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)  // every keypress registered, also arrow keys
-    cout << endl << "Press any key to continue..." << endl;
+    std::cout << std::endl << "Press any key to continue..." << std::endl;
 
     FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
     _getch();
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
-    cout << endl << "Press ENTER to continue..." << endl;
+    std::cout << std::endl << "Press ENTER to continue..." << std::endl;
 
     std::cin.clear();
     std::cin.ignore(std::cin.rdbuf()->in_avail());
