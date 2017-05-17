@@ -995,7 +995,7 @@ Gnuplot& Gnuplot::reset_all()
     (void)cmd("reset");
     (void)cmd("clear");
     pstyle = "points";
-    smooth = "";
+    smooth.clear();
     showonscreen();
 
     return *this;
@@ -1061,7 +1061,7 @@ Gnuplot& Gnuplot::set_smooth(const std::string &stylestr)
             stylestr.find("bezier")    == std::string::npos  &&
             stylestr.find("sbezier")   == std::string::npos  )
     {
-        smooth = "";
+        smooth.clear();
     }
     else
     {
@@ -1699,7 +1699,7 @@ void Gnuplot::init()
 
     nplots = 0;
     valid = true;
-    smooth = "";
+    smooth.clear();
 
     //set terminal type
     showonscreen();
