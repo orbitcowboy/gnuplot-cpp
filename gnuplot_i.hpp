@@ -745,13 +745,11 @@ Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
     if (x.size() == 0 || y.size() == 0)
     {
         throw GnuplotException("std::vectors too small");
-        return *this;
     }
 
     if (x.size() != y.size())
     {
         throw GnuplotException("Length of the std::vectors differs");
-        return *this;
     }
 
 
@@ -1790,7 +1788,6 @@ bool Gnuplot::file_exists(const std::string &filename, int mode)
     {
         throw std::runtime_error("In function \"Gnuplot::file_exists\": mode\
                 has to be an integer between 0 and 7");
-        return false;
     }
 
     // int _access(const char *path, int mode);
