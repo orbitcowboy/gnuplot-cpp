@@ -244,7 +244,7 @@ public:
     // ----------------------------------------------------------------------
     inline Gnuplot& unset_smooth()
     {
-        smooth = "";
+        smooth.clear();
         return *this;
     }
 
