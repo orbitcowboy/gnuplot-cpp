@@ -716,7 +716,7 @@ Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
 
     std::ofstream tmp;
     std::string name = create_tmpfile(tmp);
-    if (name == "")
+    if (name.empty())
         return *this;
 
     //
@@ -757,7 +757,7 @@ Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
 
     std::ofstream tmp;
     std::string name = create_tmpfile(tmp);
-    if (name == "")
+    if (name.empty())
         return *this;
 
     //
@@ -800,7 +800,7 @@ Gnuplot& Gnuplot::plot_xy_err(const X &x,
 
     std::ofstream tmp;
     std::string name = create_tmpfile(tmp);
-    if (name == "")
+    if (name.empty())
         return *this;
 
     //
@@ -845,7 +845,7 @@ Gnuplot& Gnuplot::plot_xyz(const X &x,
 
     std::ofstream tmp;
     std::string name = create_tmpfile(tmp);
-    if (name == "")
+    if (name.empty())
         return *this;
 
     //
@@ -1307,7 +1307,7 @@ Gnuplot& Gnuplot::plot_slope(const double a,
 
     cmdstr << a << " * x + " << b << " title \"";
 
-    if (title == "")
+    if (title.empty())
         cmdstr << "f(x) = " << a << " * x + " << b;
     else
         cmdstr << title;
@@ -1338,7 +1338,7 @@ Gnuplot& Gnuplot::plot_equation(const std::string &equation,
 
     cmdstr << equation;
 
-    if (title == "")
+    if (title.empty())
         cmdstr << " notitle";
     else
         cmdstr << " title \"" << title << "\"";
@@ -1369,7 +1369,7 @@ Gnuplot& Gnuplot::plot_equation3d(const std::string &equation,
 
     cmdstr << equation << " title \"";
 
-    if (title == "")
+    if (title.empty())
         cmdstr << "f(x,y) = " << equation;
     else
         cmdstr << title;
@@ -1407,12 +1407,12 @@ Gnuplot& Gnuplot::plotfile_x(const std::string &filename,
 
     cmdstr << "\"" << filename << "\" using " << column;
 
-    if (title == "")
+    if (title.empty())
         cmdstr << " notitle ";
     else
         cmdstr << " title \"" << title << "\" ";
 
-    if(smooth == "")
+    if(smooth.empty())
         cmdstr << "with " << pstyle;
     else
         cmdstr << "smooth " << smooth;
@@ -1450,12 +1450,12 @@ Gnuplot& Gnuplot::plotfile_xy(const std::string &filename,
 
     cmdstr << "\"" << filename << "\" using " << column_x << ":" << column_y;
 
-    if (title == "")
+    if (title.empty())
         cmdstr << " notitle ";
     else
         cmdstr << " title \"" << title << "\" ";
 
-    if(smooth == "")
+    if(smooth.empty())
         cmdstr << "with " << pstyle;
     else
         cmdstr << "smooth " << smooth;
@@ -1495,7 +1495,7 @@ Gnuplot& Gnuplot::plotfile_xy_err(const std::string &filename,
            << column_x << ":" << column_y << ":" << column_dy
            << " with errorbars ";
 
-    if (title == "")
+    if (title.empty())
         cmdstr << " notitle ";
     else
         cmdstr << " title \"" << title << "\" ";
@@ -1534,7 +1534,7 @@ Gnuplot& Gnuplot::plotfile_xyz(const std::string &filename,
     cmdstr << "\"" << filename << "\" using " << column_x << ":" << column_y
            << ":" << column_z;
 
-    if (title == "")
+    if (title.empty())
         cmdstr << " notitle with " << pstyle;
     else
         cmdstr << " title \"" << title << "\" with " << pstyle;
@@ -1558,7 +1558,7 @@ Gnuplot& Gnuplot::plot_image(const unsigned char * ucPicBuf,
 {
     std::ofstream tmp;
     std::string name = create_tmpfile(tmp);
-    if (name == "")
+    if (name.empty())
         return *this;
 
     //
@@ -1586,7 +1586,7 @@ Gnuplot& Gnuplot::plot_image(const unsigned char * ucPicBuf,
     else
         cmdstr << "plot ";
 
-    if (title == "")
+    if (title.empty())
         cmdstr << "\"" << name << "\" with image";
     else
         cmdstr << "\"" << name << "\" title \"" << title << "\" with image";
