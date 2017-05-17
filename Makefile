@@ -1,4 +1,4 @@
-CFLAGS = -ggdb -Wall -Wextra -pedantic -Wconversion -Wsign-conversion
+CFLAGS = -ggdb -Wall -Wextra -pedantic -Wconversion -Wsign-conversion -O2
 DEFINES = -DDEBUGGA
 INCLUDES = 
 LIBS = -lstdc++
