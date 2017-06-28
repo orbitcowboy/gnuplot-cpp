@@ -7,3 +7,13 @@ This project was hosted on [google code](code.google.com/p/gnuplot-cpp). Since g
   <img alt="Coverity Scan Build Status"
        src="https://scan.coverity.com/projects/988/badge.svg"/>
 </a>
+
+# Use with CMake Projects
+
+To use this interface within your CMake projects, you can use the gnuplot-cppConfig.cmake. Just make sure, that CMake is able to find the gnuplot-cpp directory, either by moving it to the CMake search path, or setting graybat-cpp_dir.
+
+To include it into your project just add:
+```
+find_package(gnuplot-cpp REQUIRED)
+include_directories(${gnuplot-cpp_INCLUDE_DIRS})
+```
