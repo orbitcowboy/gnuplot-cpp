@@ -1880,7 +1880,7 @@ std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
         throw GnuplotException(except.str());
     }
 #if defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
-    close(tmpfd);
+    (void)close(tmpfd);
 #endif
 
     tmp.open(name);
