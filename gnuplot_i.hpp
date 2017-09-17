@@ -1816,14 +1816,13 @@ bool Gnuplot::file_available(const std::string &filename)
         {
             except << "No read permission for File \"" << filename << "\"";
             throw GnuplotException( except.str() );
-            return false;
         }
+        return true;
     }
     else
     {
         except << "File \"" << filename << "\" does not exist";
         throw GnuplotException( except.str() );
-        return false;
     }
     return false;
 }
