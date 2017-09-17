@@ -1732,16 +1732,12 @@ bool Gnuplot::get_program_path()
 
     //
     // second look in PATH for Gnuplot
-    //
-    char *path;
     // Retrieves a C string containing the value of environment variable PATH
-    path = getenv("PATH");
-
+    char * const path = getenv("PATH");;
 
     if (path == NULL)
     {
         throw GnuplotException("Path is not set");
-        return false;
     }
     else
     {
@@ -1774,6 +1770,7 @@ bool Gnuplot::get_program_path()
               Gnuplot::m_sGNUPlotPath + "\"";
         throw GnuplotException(tmp);
     }
+    return false;
 }
 
 
