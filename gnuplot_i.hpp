@@ -735,10 +735,7 @@ Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
 }
 
 
-//------------------------------------------------------------------------------
-//
 /// Plots a 2d graph from a list of doubles: x y
-//
 template<typename X, typename Y>
 Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
 {
@@ -751,32 +748,27 @@ Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
     {
         throw GnuplotException("Length of the std::vectors differs");
     }
-
-
     std::ofstream tmp;
-    std::string name = create_tmpfile(tmp);
+    const std::string name = create_tmpfile(tmp);
     if (name.empty())
-        return *this;
-
-    //
+    {
+	    throw GnuplotException("Unable to create tmp-file.");
+	}
     // write the data to file
-    //
-    for (unsigned int i = 0; i < x.size(); i++)
+    for (std::size_t i = 0; i < x.size(); i++) 
+    {
         tmp << x[i] << " " << y[i] << std::endl;
-
+    }
+	// Cleanup
     tmp.flush();
     tmp.close();
-
-
+    // Plot
     plotfile_xy(name, 1, 2, title);
 
     return *this;
 }
 
-///-----------------------------------------------------------------------------
-///
-/// plot x,y pairs with dy errorbars
-///
+/// Plot x,y pairs with dy errorbars
 template<typename X, typename Y, typename E>
 Gnuplot& Gnuplot::plot_xy_err(const X &x,
                               const Y &y,
@@ -786,42 +778,33 @@ Gnuplot& Gnuplot::plot_xy_err(const X &x,
     if (x.size() == 0 || y.size() == 0 || dy.size() == 0)
     {
         throw GnuplotException("std::vectors too small");
-        return *this;
     }
 
     if (x.size() != y.size() || y.size() != dy.size())
     {
         throw GnuplotException("Length of the std::vectors differs");
-        return *this;
     }
-
-
     std::ofstream tmp;
-    std::string name = create_tmpfile(tmp);
+    const std::string name = create_tmpfile(tmp);
     if (name.empty())
-        return *this;
-
-    //
+    {
+	    throw GnuplotException("Unable to create tmp-file.");
+	}
     // write the data to file
-    //
-    for (unsigned int i = 0; i < x.size(); i++)
+    for (std::size_t i = 0; i < x.size(); i++)
+    {
         tmp << x[i] << " " << y[i] << " " << dy[i] << std::endl;
-
+    }
+    // Cleanup
     tmp.flush();
     tmp.close();
-
-
     // Do the actual plot
     plotfile_xy_err(name, 1, 2, 3, title);
 
     return *this;
 }
 
-
-//------------------------------------------------------------------------------
-//
-// Plots a 3d graph from a list of doubles: x y z
-//
+/// Plots a 3d graph from a list of doubles: x y z
 template<typename X, typename Y, typename Z>
 Gnuplot& Gnuplot::plot_xyz(const X &x,
                            const Y &y,
@@ -831,48 +814,37 @@ Gnuplot& Gnuplot::plot_xyz(const X &x,
     if (x.size() == 0 || y.size() == 0 || z.size() == 0)
     {
         throw GnuplotException("std::vectors too small");
-        return *this;
     }
-
     if (x.size() != y.size() || x.size() != z.size())
     {
         throw GnuplotException("Length of the std::vectors differs");
-        return *this;
     }
-
-
     std::ofstream tmp;
-    std::string name = create_tmpfile(tmp);
+    const std::string name = create_tmpfile(tmp);
     if (name.empty())
-        return *this;
-
-    //
+    {
+	    throw GnuplotException("Unable to create tmp-file.");
+	}
     // write the data to file
-    //
-    for (unsigned int i = 0; i < x.size(); i++)
+    for (std::size_t i = 0; i < x.size(); i++)
+    {
         tmp << x[i] << " " << y[i] << " " << z[i] <<std::endl;
-
+    }
+	// cleanup
     tmp.flush();
     tmp.close();
-
-
+    // plot file
     plotfile_xyz(name, 1, 2, 3, title);
-
+    
     return *this;
 }
 
-
-//------------------------------------------------------------------------------
-//
 // define static member function: set Gnuplot path manual
 //   for windows: path with slash '/' not backslash '\'
 //
 bool Gnuplot::set_GNUPlotPath(const std::string &path)
 {
-
-    std::string tmp = path + "/" + Gnuplot::m_sGNUPlotFileName;
-
-
+    const std::string tmp = path + "/" + Gnuplot::m_sGNUPlotFileName;
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
     if ( Gnuplot::file_exists(tmp,0) ) // check existence
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
@@ -882,13 +854,9 @@ bool Gnuplot::set_GNUPlotPath(const std::string &path)
         Gnuplot::m_sGNUPlotPath = path;
         return true;
     }
-    else
-    {
-        Gnuplot::m_sGNUPlotPath.clear();
-        return false;
-    }
+    Gnuplot::m_sGNUPlotPath.clear();
+    return false;
 }
-
 
 //------------------------------------------------------------------------------
 //
@@ -903,10 +871,7 @@ void Gnuplot::set_terminal_std(const std::string &type)
         throw GnuplotException("Can't find DISPLAY variable");
     }
 #endif
-
-
     Gnuplot::terminal_std = type;
-    return;
 }
 
 
