@@ -17,7 +17,7 @@
 #include <windows.h> //for Sleep()
 void sleep(int i)
 {
-    Sleep(i*1000);
+    Sleep(i * 1000);
 }
 #endif
 
@@ -34,11 +34,11 @@ int main()
     // if path-variable for gnuplot is not set, do it with:
     // Gnuplot::set_GNUPlotPath("C:/program files/gnuplot/bin/");
 
-    #if defined(__APPLE__)
-      // set a special standard terminal for showonscreen (normally not needed),
-      //   e.g. Mac users who want to use x11 instead of aqua terminal:
-     Gnuplot::set_terminal_std("x11");
-    #endif 
+#if defined(__APPLE__)
+    // set a special standard terminal for showonscreen (normally not needed),
+    //   e.g. Mac users who want to use x11 instead of aqua terminal:
+    Gnuplot::set_terminal_std("x11");
+#endif
     cout << "*** example of gnuplot control through C++ ***" << endl << endl;
 
     //
@@ -55,13 +55,13 @@ int main()
         g1.set_title("Slopes\\nNew Line");
 
         cout << "y = x" << endl;
-        g1.plot_slope(1.0,0.0,"y=x");
+        g1.plot_slope(1.0, 0.0, "y=x");
 
         cout << "y = 2*x" << endl;
-        g1.plot_slope(2.0,0.0,"y=2x");
+        g1.plot_slope(2.0, 0.0, "y=2x");
 
         cout << "y = -x" << endl;
-        g1.plot_slope(-1.0,0.0,"y=-x");
+        g1.plot_slope(-1.0, 0.0, "y=-x");
         g1.unset_title();
 
         //
@@ -71,13 +71,13 @@ int main()
         cout << endl << endl << "*** various equations" << endl;
 
         cout << "y = sin(x)" << endl;
-        g1.plot_equation("sin(x)","sine");
+        g1.plot_equation("sin(x)", "sine");
 
         cout << "y = log(x)" << endl;
-        g1.plot_equation("log(x)","logarithm");
+        g1.plot_equation("log(x)", "logarithm");
 
         cout << "y = sin(x) * cos(2*x)" << endl;
-        g1.plot_equation("sin(x)*cos(2*x)","sine product");
+        g1.plot_equation("sin(x)*cos(2*x)", "sine product");
 
         //
         // Styles
@@ -87,15 +87,15 @@ int main()
 
         cout << "sine in points" << endl;
         g1.set_pointsize(0.8).set_style("points");
-        g1.plot_equation("sin(x)","points");
+        g1.plot_equation("sin(x)", "points");
 
         cout << "sine in impulses" << endl;
         g1.set_style("impulses");
-        g1.plot_equation("sin(x)","impulses");
+        g1.plot_equation("sin(x)", "impulses");
 
         cout << "sine in steps" << endl;
         g1.set_style("steps");
-        g1.plot_equation("sin(x)","steps");
+        g1.plot_equation("sin(x)", "steps");
 
         //
         // Save to ps
@@ -104,9 +104,9 @@ int main()
         cout << endl << endl << "*** save to ps " << endl;
 
         cout << "y = sin(x) saved to test_output.ps in working directory" << endl;
-//      g1.savetops("test_output");
+        //      g1.savetops("test_output");
         g1.savetofigure("test_output.ps", "postscript color");
-        g1.set_style("lines").set_samples(300).set_xrange(0,5);
+        g1.set_style("lines").set_samples(300).set_xrange(0, 5);
         g1.plot_equation("sin(12*x)*exp(-x)").plot_equation("exp(-x)");
 
         g1.showonscreen(); // window output
@@ -136,21 +136,21 @@ int main()
 
         g1.reset_all();
         cout << endl << endl << "*** user-defined lists of doubles" << endl;
-        g1.set_style("impulses").plot_x(y,"user-defined doubles");
+        g1.set_style("impulses").plot_x(y, "user-defined doubles");
 
         g1.reset_plot();
         cout << endl << endl << "*** user-defined lists of points (x,y)" << endl;
         g1.set_grid();
-        g1.set_style("points").plot_xy(x,y,"user-defined points 2d");
+        g1.set_style("points").plot_xy(x, y, "user-defined points 2d");
 
         g1.reset_plot();
         cout << endl << endl << "*** user-defined lists of points (x,y,z)" << endl;
         g1.unset_grid();
-        g1.plot_xyz(x,y,z,"user-defined points 3d");
+        g1.plot_xyz(x, y, z, "user-defined points 3d");
 
         g1.reset_plot();
         cout << endl << endl << "*** user-defined lists of points (x,y,dy)" << endl;
-        g1.plot_xy_err(x,y,dy,"user-defined points 2d with errorbars");
+        g1.plot_xy_err(x, y, dy, "user-defined points 2d with errorbars");
 
 
         //
@@ -162,26 +162,26 @@ int main()
         g1.reset_plot();
         g1.set_style("lines");
         cout << "window 1: sin(x)" << endl;
-        g1.set_grid().set_samples(600).set_xrange(0,300);
+        g1.set_grid().set_samples(600).set_xrange(0, 300);
         g1.plot_equation("sin(x)+sin(x*1.1)");
 
         g1.set_xautoscale().replot();
 
         Gnuplot g2;
         cout << "window 2: user defined points" << endl;
-        g2.plot_x(y2,"points");
-        g2.set_smooth().plot_x(y2,"cspline");
-        g2.set_smooth("bezier").plot_x(y2,"bezier");
+        g2.plot_x(y2, "points");
+        g2.set_smooth().plot_x(y2, "cspline");
+        g2.set_smooth("bezier").plot_x(y2, "bezier");
         g2.unset_smooth();
 
         Gnuplot g3("lines");
         cout << "window 3: log(x)/x" << endl;
         g3.set_grid();
-        g3.plot_equation("log(x)/x","log(x)/x");
+        g3.plot_equation("log(x)/x", "log(x)/x");
 
         Gnuplot g4("lines");
         cout << "window 4: splot x*x+y*y" << endl;
-        g4.set_zrange(0,100);
+        g4.set_zrange(0, 100);
         g4.set_xlabel("x-axis").set_ylabel("y-axis").set_zlabel("z-axis");
         g4.plot_equation3d("x*x+y*y");
 
@@ -199,14 +199,14 @@ int main()
 
         Gnuplot g7("lines");
         cout << "window 7: set_samples" << endl;
-        g7.set_xrange(-30,20).set_samples(40);
+        g7.set_xrange(-30, 20).set_samples(40);
         g7.plot_equation("besj0(x)*0.12e1").plot_equation("(x**besj0(x))-2.5");
 
         g7.set_samples(400).replot();
 
         Gnuplot g8("filledcurves");
         cout << "window 8: filledcurves" << endl;
-        g8.set_legend("outside right top").set_xrange(-5,5);
+        g8.set_legend("outside right top").set_xrange(-5, 5);
         g8.plot_equation("x*x").plot_equation("-x*x+4");
 
         //
@@ -216,17 +216,17 @@ int main()
         cout << "window 9: plot_image" << endl;
         const int unsigned uiWidth  = 255U;
         const int unsigned uiHeight = 255U;
-        g9.set_xrange(0,uiWidth).set_yrange(0,uiHeight).set_cbrange(0,255);
+        g9.set_xrange(0, uiWidth).set_yrange(0, uiHeight).set_cbrange(0, 255);
         g9.cmd("set palette gray");
-        unsigned char ucPicBuf[uiWidth*uiHeight];
+        unsigned char ucPicBuf[uiWidth * uiHeight];
         // generate a greyscale image
-        for(unsigned int uiIndex = 0; uiIndex < uiHeight*uiWidth; uiIndex++)
+        for(unsigned int uiIndex = 0; uiIndex < uiHeight * uiWidth; uiIndex++)
         {
-            ucPicBuf[uiIndex] = static_cast<unsigned char>(uiIndex%255U);
+            ucPicBuf[uiIndex] = static_cast<unsigned char>(uiIndex % 255U);
         }
-        g9.plot_image(ucPicBuf,uiWidth,uiHeight,"greyscale");
+        g9.plot_image(ucPicBuf, uiWidth, uiHeight, "greyscale");
 
-        g9.set_pointsize(0.6).unset_legend().plot_slope(0.8,20);
+        g9.set_pointsize(0.6).unset_legend().plot_slope(0.8, 20);
 
         //
         // manual control

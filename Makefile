@@ -18,3 +18,7 @@ example: $(EXAMPLE)
 
 clean: 
 	rm -f $(EXAMPLE) example
+	rm -f *.orig
+	
+style:
+	/usr/bin/find . -regextype "posix-extended" -iregex '.*\.(c|cc|cxx|h|hh|hpp|cpp)' -type f -exec astyle --style=ansi -S -N -w -Y -p -C -c -j {} \;	
