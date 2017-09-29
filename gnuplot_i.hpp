@@ -654,10 +654,7 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
 }
 
 
-//------------------------------------------------------------------------------
-//
 // constructor: open a new session, plot a signal (x,y)
-//
 inline Gnuplot::Gnuplot(const std::vector<double> &x,
                         const std::vector<double> &y,
                         const std::string &title,
@@ -675,11 +672,7 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
     (void)plot_xy(x, y, title);
 }
 
-
-//------------------------------------------------------------------------------
-//
 // constructor: open a new session, plot a signal (x,y,z)
-//
 inline Gnuplot::Gnuplot(const std::vector<double> &x,
                         const std::vector<double> &y,
                         const std::vector<double> &z,
@@ -700,18 +693,13 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
     (void)plot_xyz(x, y, z, title);
 }
 
-
-//------------------------------------------------------------------------------
-//
 /// Plots a 2d graph from a list of doubles: x
-//
 template<typename X>
 Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
 {
     if (x.size() == 0)
     {
         throw GnuplotException("std::vector too small");
-        return *this;
     }
 
     std::ofstream tmp;
