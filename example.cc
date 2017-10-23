@@ -15,10 +15,6 @@
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
 #include <conio.h>   //for getch(), needed in wait_for_key()
 #include <windows.h> //for Sleep()
-void sleep(int i)
-{
-    Sleep(i * 1000);
-}
 #endif
 
 
