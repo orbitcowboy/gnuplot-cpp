@@ -259,7 +259,7 @@ static void wait_for_key ()
 
     std::cin.clear();
     std::cin.ignore(std::cin.rdbuf()->in_avail());
-    std::cin.get();
+    (void)std::cin.get();
 #endif
     return;
 }
