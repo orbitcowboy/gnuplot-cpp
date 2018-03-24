@@ -99,7 +99,7 @@ class Gnuplot
         // ---------------------------------------------------
         ///\brief get_program_path(); and popen();
         // ---------------------------------------------------
-        void           init();
+        void           init(void);
         // ---------------------------------------------------
         ///\brief creates tmpfile and returns its name
         ///
@@ -114,7 +114,7 @@ class Gnuplot
         ///
         /// \return found the gnuplot path (yes == true, no == false)
         // ---------------------------------------------------------------------------------
-        static bool    get_program_path();
+        static bool    get_program_path(void);
 
         // ---------------------------------------------------------------------------------
         ///\brief checks if file is available
@@ -190,7 +190,7 @@ class Gnuplot
                 const std::string &labelz = "z");
 
         /// destructor: needed to delete temporary files
-        ~Gnuplot();
+        ~Gnuplot(void);
 
 
         //----------------------------------------------------------------------------------
@@ -216,7 +216,7 @@ class Gnuplot
         // show on screen or write to file
 
         /// sets terminal type to terminal_std
-        Gnuplot& showonscreen(); // window output is set by default (win/x11/aqua)
+        Gnuplot& showonscreen(void); // window output is set by default (win/x11/aqua)
 
         /// Saves a gnuplot to a file named filename.  Defaults to saving pdf
         Gnuplot& savetofigure(const std::string &filename,
@@ -242,7 +242,7 @@ class Gnuplot
         ///
         /// \return   a reference to a gnuplot object
         // ----------------------------------------------------------------------
-        inline Gnuplot& unset_smooth()
+        inline Gnuplot& unset_smooth(void)
         {
             smooth.clear();
             return *this;
@@ -252,12 +252,12 @@ class Gnuplot
         Gnuplot& set_pointsize(const double pointsize = 1.0);
 
         /// turns grid on/off
-        inline Gnuplot& set_grid()
+        inline Gnuplot& set_grid(void)
         {
             return cmd("set grid");
         }
         /// grid is not set by default
-        inline Gnuplot& unset_grid()
+        inline Gnuplot& unset_grid(void)
         {
             return cmd("unset grid");
         }
@@ -267,7 +267,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // -----------------------------------------------
-        inline Gnuplot& set_multiplot()
+        inline Gnuplot& set_multiplot(void)
         {
             return cmd("set multiplot");
         }
@@ -277,7 +277,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // -----------------------------------------------
-        inline Gnuplot& unset_multiplot()
+        inline Gnuplot& unset_multiplot(void)
         {
             return cmd("unset multiplot");
         }
@@ -292,7 +292,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // --------------------------------------------------------------------------
-        Gnuplot& set_hidden3d()
+        Gnuplot& set_hidden3d(void)
         {
             return cmd("set hidden3d");
         }
@@ -302,7 +302,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // ---------------------------------------------------------------------------
-        inline Gnuplot& unset_hidden3d()
+        inline Gnuplot& unset_hidden3d(void)
         {
             return cmd("unset hidden3d");
         }
@@ -315,7 +315,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // ------------------------------------------------------------------
-        inline Gnuplot& unset_contour()
+        inline Gnuplot& unset_contour(void)
         {
             return cmd("unset contour");
         }
@@ -325,7 +325,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // ------------------------------------------------------------------
-        inline Gnuplot& set_surface()
+        inline Gnuplot& set_surface(void)
         {
             return cmd("set surface");
         }
@@ -336,7 +336,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // ------------------------------------------------------------------
-        inline Gnuplot& unset_surface()
+        inline Gnuplot& unset_surface(void)
         {
             return cmd("unset surface");
         }
@@ -352,7 +352,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // ------------------------------------------------------------------
-        inline Gnuplot& unset_legend()
+        inline Gnuplot& unset_legend(void)
         {
             return cmd("unset key");
         }
@@ -406,7 +406,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // -----------------------------------------------
-        inline Gnuplot& set_xautoscale()
+        inline Gnuplot& set_xautoscale(void)
         {
             (void)cmd("set xrange restore");
             return cmd("set autoscale x");
@@ -417,7 +417,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // -----------------------------------------------
-        inline Gnuplot& set_yautoscale()
+        inline Gnuplot& set_yautoscale(void)
         {
             (void)cmd("set yrange restore");
             return cmd("set autoscale y");
@@ -428,7 +428,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // -----------------------------------------------
-        inline Gnuplot& set_zautoscale()
+        inline Gnuplot& set_zautoscale(void)
         {
             (void)cmd("set zrange restore");
             return cmd("set autoscale z");
@@ -447,7 +447,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // -----------------------------------------------
-        inline Gnuplot& unset_xlogscale()
+        inline Gnuplot& unset_xlogscale(void)
         {
             return cmd("unset logscale x");
         }
@@ -457,7 +457,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // -----------------------------------------------
-        inline Gnuplot& unset_ylogscale()
+        inline Gnuplot& unset_ylogscale(void)
         {
             return cmd("unset logscale y");
         }
@@ -467,7 +467,7 @@ class Gnuplot
         ///
         /// \return   reference to the gnuplot object
         // -----------------------------------------------
-        inline Gnuplot& unset_zlogscale()
+        inline Gnuplot& unset_zlogscale(void)
         {
             return cmd("unset logscale z");
         }
@@ -582,18 +582,18 @@ class Gnuplot
         }
 
         /// resets a gnuplot session (next plot will erase previous ones)
-        Gnuplot& reset_plot();
+        Gnuplot& reset_plot(void);
 
         /// resets a gnuplot session and sets all variables to default
-        Gnuplot& reset_all();
+        Gnuplot& reset_all(void);
 
         /// deletes temporary files
-        void remove_tmpfiles();
+        void remove_tmpfiles(void);
 
         /// \brief Is the gnuplot session valid ??
         ///
         /// \return true if valid, false if not
-        inline bool is_valid() const
+        inline bool is_valid(void) const
         {
             return valid;
         }
@@ -916,7 +916,7 @@ void stringtok (Container &container,
 //
 // Destructor: needed to delete temporary files
 //
-Gnuplot::~Gnuplot()
+Gnuplot::~Gnuplot(void)
 {
     //  remove_tmpfiles();
 
@@ -934,7 +934,7 @@ Gnuplot::~Gnuplot()
 //
 // Resets a gnuplot session (next plot will erase previous ones)
 //
-Gnuplot& Gnuplot::reset_plot()
+Gnuplot& Gnuplot::reset_plot(void)
 {
     //  remove_tmpfiles();
 
@@ -948,7 +948,7 @@ Gnuplot& Gnuplot::reset_plot()
 //
 // resets a gnuplot session and sets all variables to default
 //
-Gnuplot& Gnuplot::reset_all()
+Gnuplot& Gnuplot::reset_all(void)
 {
     //  remove_tmpfiles();
 
@@ -1037,7 +1037,7 @@ Gnuplot& Gnuplot::set_smooth(const std::string &stylestr)
 //
 // sets terminal type to windows / x11
 //
-Gnuplot& Gnuplot::showonscreen()
+Gnuplot& Gnuplot::showonscreen(void)
 {
     (void)cmd("set output");
     return cmd("set terminal " + Gnuplot::terminal_std);
@@ -1681,7 +1681,7 @@ Gnuplot& Gnuplot::cmd(const std::string &cmdstr)
 //
 // Opens up a gnuplot session, ready to receive commands
 //
-void Gnuplot::init()
+void Gnuplot::init(void)
 {
     // char * getenv ( const char * name );  get value of environment variable
     // Retrieves a C string containing the value of the environment variable
@@ -1741,7 +1741,7 @@ void Gnuplot::init()
 //
 // Find out if a command lives in m_sGNUPlotPath or in PATH
 //
-bool Gnuplot::get_program_path()
+bool Gnuplot::get_program_path(void)
 {
     //
     // first look in m_sGNUPlotPath for Gnuplot
@@ -1915,7 +1915,7 @@ std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
     return name;
 }
 
-void Gnuplot::remove_tmpfiles()
+void Gnuplot::remove_tmpfiles(void)
 {
     if ((tmpfile_list).size() > 0)
     {
