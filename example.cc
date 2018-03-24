@@ -25,7 +25,7 @@ static void wait_for_key(); // Program halts until keypress
 using std::cout;
 using std::endl;
 
-int main()
+int main(void)
 {
     // if path-variable for gnuplot is not set, do it with:
     // Gnuplot::set_GNUPlotPath("C:/program files/gnuplot/bin/");
@@ -247,7 +247,7 @@ int main()
 
 
 
-static void wait_for_key ()
+static void wait_for_key (void)
 {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)  // every keypress registered, also arrow keys
     std::cout << std::endl << "Press any key to continue..." << std::endl;
