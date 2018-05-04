@@ -64,8 +64,6 @@ class GnuplotException : public std::runtime_error
 
 class Gnuplot
 {
-    private:
-
         //----------------------------------------------------------------------------------
         // member data
         ///\brief pointer to the stream that can be used to write to the pipe
