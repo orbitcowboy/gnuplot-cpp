@@ -20,7 +20,7 @@
 
 #define NPOINTS    50 // length of array
 
-static void wait_for_key(); // Program halts until keypress
+static void wait_for_key(void); // Program halts until keypress
 
 using std::cout;
 using std::endl;
