@@ -15,8 +15,9 @@
 #
 
 make clean    # Cleanup previous build
-rm -f p.log   # Remove intermediate log file
-rm -f p.tasks # Remove task file
-pvs-studio-analyzer trace -- make
+rm -fR result # Remove results
+rm -f p.log   # Remove log file
+pvs-studio-analyzer trace -- make -j3 CFLAGS=""
 pvs-studio-analyzer analyze -o p.log
-plog-converter -a GA:1,2 -t tasklist -o p.tasks p.log
+plog-converter -a GA:1,2,3 -t fullhtml -o result p.log
+xdg-open result/index.html
