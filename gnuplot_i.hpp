@@ -695,7 +695,7 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
 template<typename X>
 Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
 {
-    if (x.size() == 0)
+    if (x.empty())
     {
         throw GnuplotException("std::vector too small");
     }
@@ -729,7 +729,7 @@ Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
 template<typename X, typename Y>
 Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
 {
-    if (x.size() == 0 || y.size() == 0)
+    if (x.empty() || y.empty())
     {
         throw GnuplotException("std::vectors too small");
     }
@@ -801,7 +801,7 @@ Gnuplot& Gnuplot::plot_xyz(const X &x,
                            const Z &z,
                            const std::string &title)
 {
-    if (x.size() == 0 || y.size() == 0 || z.size() == 0)
+    if (x.empty() || y.empty() || z.empty())
     {
         throw GnuplotException("std::vectors too small");
     }
