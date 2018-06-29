@@ -889,7 +889,7 @@ void stringtok (Container &container,
         }
 
         // find the end of the token
-        std::string::size_type j = in.find_first_of (delimiters, i);
+        const std::string::size_type j = in.find_first_of (delimiters, i);
 
         // push token
         if (j == std::string::npos)
@@ -1760,7 +1760,7 @@ bool Gnuplot::get_program_path(void)
     //
     // second look in PATH for Gnuplot
     // Retrieves a C string containing the value of environment variable PATH
-    char * const path = getenv("PATH");;
+    const char * const path = getenv("PATH");;
 
     if (path == NULL)
     {
