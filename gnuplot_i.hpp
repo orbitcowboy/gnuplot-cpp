@@ -163,14 +163,14 @@ class Gnuplot
         explicit Gnuplot(const std::string &style = "points");
 
         /// plot a single std::vector at one go
-        Gnuplot(const std::vector<double> &x,
+        explicit Gnuplot(const std::vector<double> &x,
                 const std::string &title = "",
                 const std::string &style = "points",
                 const std::string &labelx = "x",
                 const std::string &labely = "y");
 
         /// plot pairs std::vector at one go
-        Gnuplot(const std::vector<double> &x,
+        explicit Gnuplot(const std::vector<double> &x,
                 const std::vector<double> &y,
                 const std::string &title = "",
                 const std::string &style = "points",
@@ -178,7 +178,7 @@ class Gnuplot
                 const std::string &labely = "y");
 
         /// plot triples std::vector at one go
-        Gnuplot(const std::vector<double> &x,
+        explicit Gnuplot(const std::vector<double> &x,
                 const std::vector<double> &y,
                 const std::vector<double> &z,
                 const std::string &title = "",
