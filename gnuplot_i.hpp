@@ -924,7 +924,7 @@ Gnuplot::~Gnuplot(void)
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
     if (pclose(gnucmd) == -1)
 #endif
-        std::cerr << "Gnuplot::~Gnuplot: Problem closing communication to gnuplot" << std::endl;
+    { std::cerr << "Gnuplot::~Gnuplot: Problem closing communication to gnuplot" << std::endl; }
 }
 
 
@@ -1660,7 +1660,7 @@ Gnuplot& Gnuplot::cmd(const std::string &cmdstr)
     if( cmdstr.find("replot") != std::string::npos )
     {
         return *this;
-    }
+    } 
     else if( cmdstr.find("splot") != std::string::npos )
     {
         two_dim = false;
@@ -1671,6 +1671,10 @@ Gnuplot& Gnuplot::cmd(const std::string &cmdstr)
         two_dim = true;
         nplots++;
     }
+    else
+	{
+		// Nothing to do
+	}
 
     return *this;
 }
