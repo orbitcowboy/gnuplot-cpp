@@ -1764,7 +1764,7 @@ bool Gnuplot::get_program_path(void)
     //
     // second look in PATH for Gnuplot
     // Retrieves a C string containing the value of environment variable PATH
-    const char * const path = getenv("PATH");;
+    const char * const path = getenv("PATH");
 
     if (path == NULL)
     {
