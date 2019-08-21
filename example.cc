@@ -261,5 +261,4 @@ static void wait_for_key (void)
     std::cin.ignore(std::cin.rdbuf()->in_avail());
     (void)std::cin.get();
 #endif
-    return;
 }
