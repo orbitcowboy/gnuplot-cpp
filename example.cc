@@ -253,7 +253,7 @@ static void wait_for_key (void)
     std::cout << std::endl << "Press any key to continue..." << std::endl;
 
     FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
-    _getch();
+    (void)_getch();
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
     std::cout << std::endl << "Press ENTER to continue..." << std::endl;
 
