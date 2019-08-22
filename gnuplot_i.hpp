@@ -967,42 +967,10 @@ Gnuplot& Gnuplot::reset_all(void)
 //
 Gnuplot& Gnuplot::set_style(const std::string &stylestr)
 {
-    if (stylestr.find("lines")          == std::string::npos  &&
-            stylestr.find("points")         == std::string::npos  &&
-            stylestr.find("linespoints")    == std::string::npos  &&
-            stylestr.find("impulses")       == std::string::npos  &&
-            stylestr.find("dots")           == std::string::npos  &&
-            stylestr.find("steps")          == std::string::npos  &&
-            stylestr.find("fsteps")         == std::string::npos  &&
-            stylestr.find("histeps")        == std::string::npos  &&
-            stylestr.find("boxes")          == std::string::npos  &&  // 1-4 columns of data are required
-            stylestr.find("filledcurves")   == std::string::npos  &&
-            stylestr.find("histograms")     == std::string::npos  )   //only for one data column
-        //        stylestr.find("labels")         == std::string::npos  &&  // 3 columns of data are required
-        //        stylestr.find("xerrorbars")     == std::string::npos  &&  // 3-4 columns of data are required
-        //        stylestr.find("xerrorlines")    == std::string::npos  &&  // 3-4 columns of data are required
-        //        stylestr.find("errorbars")      == std::string::npos  &&  // 3-4 columns of data are required
-        //        stylestr.find("errorlines")     == std::string::npos  &&  // 3-4 columns of data are required
-        //        stylestr.find("yerrorbars")     == std::string::npos  &&  // 3-4 columns of data are required
-        //        stylestr.find("yerrorlines")    == std::string::npos  &&  // 3-4 columns of data are required
-        //        stylestr.find("boxerrorbars")   == std::string::npos  &&  // 3-5 columns of data are required
-        //        stylestr.find("xyerrorbars")    == std::string::npos  &&  // 4,6,7 columns of data are required
-        //        stylestr.find("xyerrorlines")   == std::string::npos  &&  // 4,6,7 columns of data are required
-        //        stylestr.find("boxxyerrorbars") == std::string::npos  &&  // 4,6,7 columns of data are required
-        //        stylestr.find("financebars")    == std::string::npos  &&  // 5 columns of data are required
-        //        stylestr.find("candlesticks")   == std::string::npos  &&  // 5 columns of data are required
-        //        stylestr.find("vectors")        == std::string::npos  &&
-        //        stylestr.find("image")          == std::string::npos  &&
-        //        stylestr.find("rgbimage")       == std::string::npos  &&
-        //        stylestr.find("pm3d")           == std::string::npos  )
+	if( (pstyle != stylestr) && !stylestr.empty() )
     {
-        pstyle = std::string("points");
-    }
-    else
-    {
-        pstyle = stylestr;
-    }
-
+		pstyle = stylestr;
+	}
     return *this;
 }
 
