@@ -984,9 +984,7 @@ Gnuplot& Gnuplot::set_smooth(const std::string &stylestr)
     if (stylestr.find("unique")    == std::string::npos  &&
             stylestr.find("frequency") == std::string::npos  &&
             stylestr.find("csplines")  == std::string::npos  &&
-            stylestr.find("acsplines") == std::string::npos  &&
-            stylestr.find("bezier")    == std::string::npos  &&
-            stylestr.find("sbezier")   == std::string::npos  )
+            stylestr.find("bezier")    == std::string::npos  )
     {
         smooth.clear();
     }
