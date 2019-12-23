@@ -7,6 +7,7 @@ This project was hosted on [google code](https://code.google.com/archive/p/gnupl
   <img alt="Coverity Scan Build Status"
        src="https://scan.coverity.com/projects/988/badge.svg"/>
 </a>
+<a href="https://lgtm.com/projects/g/orbitcowboy/gnuplot-cpp/alerts/"><img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/orbitcowboy/gnuplot-cpp.svg?logo=lgtm&logoWidth=18"/></a>
 
 # Use with CMake Projects
 
