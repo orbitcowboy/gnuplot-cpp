@@ -1820,9 +1820,9 @@ bool Gnuplot::file_available(const std::string &filename)
 std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
 {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
-    char name[] = {'g', 'n', 'u', 'p', 'l', 'o', 't', 'i', 'X', 'X', 'X', 'X', 'X', 'X', '\0'}; //tmp file in working directory
+    char name[15] = {'g', 'n', 'u', 'p', 'l', 'o', 't', 'i', 'X', 'X', 'X', 'X', 'X', 'X', '\0'}; //tmp file in working directory
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
-    char name[] = {'/', 't', 'm', 'p', '/', 'g', 'n', 'u', 'p', 'l', 'o', 't', 'i', 'X', 'X', 'X', 'X', 'X', 'X', '\0'}; // tmp file in /tmp
+    char name[20] = {'/', 't', 'm', 'p', '/', 'g', 'n', 'u', 'p', 'l', 'o', 't', 'i', 'X', 'X', 'X', 'X', 'X', 'X', '\0'}; // tmp file in /tmp
 #endif
 
     //
