@@ -31,8 +31,7 @@ jobs:
       # with:
       languages: cpp
       
-    - name: Run test
-        run: |
+    - run: |
           make all
 
     - name: Perform CodeQL Analysis
