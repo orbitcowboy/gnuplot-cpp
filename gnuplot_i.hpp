@@ -710,7 +710,7 @@ Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
     //
     // write the data to file
     //
-    for (unsigned int i = 0; i < x.size(); i++)
+    for (unsigned int i = 0; i < x.size(); ++i)
     {
         tmp << x[i] << std::endl;
     }
@@ -745,7 +745,7 @@ Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
         throw GnuplotException("Unable to create tmp-file.");
     }
     // write the data to file
-    for (std::size_t i = 0; i < x.size(); i++)
+    for (std::size_t i = 0; i < x.size(); ++i)
     {
         tmp << x[i] << " " << y[i] << std::endl;
     }
@@ -781,7 +781,7 @@ Gnuplot& Gnuplot::plot_xy_err(const X &x,
         throw GnuplotException("Unable to create tmp-file.");
     }
     // write the data to file
-    for (std::size_t i = 0; i < x.size(); i++)
+    for (std::size_t i = 0; i < x.size(); ++i)
     {
         tmp << x[i] << " " << y[i] << " " << dy[i] << std::endl;
     }
@@ -816,7 +816,7 @@ Gnuplot& Gnuplot::plot_xyz(const X &x,
         throw GnuplotException("Unable to create tmp-file.");
     }
     // write the data to file
-    for (std::size_t i = 0; i < x.size(); i++)
+    for (std::size_t i = 0; i < x.size(); ++i)
     {
         tmp << x[i] << " " << y[i] << " " << z[i] << std::endl;
     }
@@ -1554,9 +1554,9 @@ Gnuplot& Gnuplot::plot_image(const unsigned char * ucPicBuf,
     // write the data to file
     //
     int iIndex = 0;
-    for(unsigned int iRow = 0; iRow < iHeight; iRow++)
+    for(unsigned int iRow = 0; iRow < iHeight; ++iRow)
     {
-        for(unsigned int iColumn = 0; iColumn < iWidth; iColumn++)
+        for(unsigned int iColumn = 0; iColumn < iWidth; ++iColumn)
         {
             tmp << iColumn << " " << iRow  << " "
                 << static_cast<float>(ucPicBuf[iIndex++]) << std::endl;
@@ -1630,12 +1630,12 @@ Gnuplot& Gnuplot::cmd(const std::string &cmdstr)
     else if( cmdstr.find("splot") != std::string::npos )
     {
         two_dim = false;
-        nplots++;
+        ++nplots;
     }
     else if( cmdstr.find("plot") != std::string::npos )
     {
         two_dim = true;
-        nplots++;
+        ++nplots;
     }
     else
 	{
@@ -1887,7 +1887,7 @@ void Gnuplot::remove_tmpfiles(void)
 {
     if ((tmpfile_list).size() > 0)
     {
-        for (unsigned int i = 0; i < tmpfile_list.size(); i++)
+        for (unsigned int i = 0U; i < tmpfile_list.size(); ++i)
         {
 
             if( remove( tmpfile_list[i].c_str() ) != 0 )

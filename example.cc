@@ -113,7 +113,7 @@ int main(void)
         //
         std::vector<double> x, y, y2, dy, z;
 
-        for (unsigned int i = 0; i < NPOINTS; i++)  // fill double arrays x, y, z
+        for (unsigned int i = 0; i < NPOINTS; ++i)  // fill double arrays x, y, z
         {
             x.push_back((double)i);             // x[i] = i
             y.push_back((double)i * (double)i); // y[i] = i^2
@@ -216,7 +216,7 @@ int main(void)
         g9.cmd("set palette gray");
         unsigned char ucPicBuf[uiWidth * uiHeight];
         // generate a greyscale image
-        for(unsigned int uiIndex = 0; uiIndex < uiHeight * uiWidth; uiIndex++)
+        for(unsigned int uiIndex = 0; uiIndex < uiHeight * uiWidth; ++uiIndex)
         {
             ucPicBuf[uiIndex] = static_cast<unsigned char>(uiIndex % 255U);
         }
