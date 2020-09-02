@@ -161,7 +161,7 @@ int main(void)
         g1.set_grid().set_samples(600).set_xrange(0, 300);
         g1.plot_equation("sin(x)+sin(x*1.1)");
 
-        g1.set_xautoscale().replot();
+        (void)g1.set_xautoscale().replot();
 
         Gnuplot g2;
         cout << "window 2: user defined points" << endl;
@@ -183,7 +183,7 @@ int main(void)
 
         Gnuplot g5("lines");
         cout << "window 5: splot with hidden3d" << endl;
-        g5.set_isosamples(25).set_hidden3d();
+        (void)g5.set_isosamples(25).set_hidden3d();
         g5.plot_equation3d("x*y*y");
 
         Gnuplot g6("lines");
@@ -191,14 +191,14 @@ int main(void)
         g6.set_isosamples(60).set_contour();
         g6.unset_surface().plot_equation3d("sin(x)*sin(y)+4");
 
-        g6.set_surface().replot();
+        (void)g6.set_surface().replot();
 
         Gnuplot g7("lines");
         cout << "window 7: set_samples" << endl;
         g7.set_xrange(-30, 20).set_samples(40);
         g7.plot_equation("besj0(x)*0.12e1").plot_equation("(x**besj0(x))-2.5");
 
-        g7.set_samples(400).replot();
+        (void)g7.set_samples(400).replot();
 
         Gnuplot g8("filledcurves");
         cout << "window 8: filledcurves" << endl;
