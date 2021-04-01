@@ -210,8 +210,8 @@ int main(void)
         //
         Gnuplot g9;
         cout << "window 9: plot_image" << endl;
-        const int unsigned uiWidth  = 255U;
-        const int unsigned uiHeight = 255U;
+        constexpr const int unsigned uiWidth  = 255U;
+        constexpr const int unsigned uiHeight = 255U;
         g9.set_xrange(0, uiWidth).set_yrange(0, uiHeight).set_cbrange(0, 255);
         g9.cmd("set palette gray");
         unsigned char ucPicBuf[uiWidth * uiHeight];
