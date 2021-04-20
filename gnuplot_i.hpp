@@ -624,7 +624,7 @@ std::string Gnuplot::terminal_std = "aqua";
 // constructor: set a style during construction
 //
 inline Gnuplot::Gnuplot(const std::string &style)
-    : gnucmd(NULL) , valid(false) , two_dim(false) , nplots(0)
+    : gnucmd(nullptr) , valid(false) , two_dim(false) , nplots(0)
 
 {
     init();
@@ -640,7 +640,7 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
                         const std::string &style,
                         const std::string &labelx,
                         const std::string &labely)
-    : gnucmd(NULL) , valid(false) , two_dim(false) , nplots(0)
+    : gnucmd(nullptr) , valid(false) , two_dim(false) , nplots(0)
 {
     init();
 
@@ -659,7 +659,7 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
                         const std::string &style,
                         const std::string &labelx,
                         const std::string &labely)
-    : gnucmd(NULL) , valid(false) , two_dim(false) , nplots(0)
+    : gnucmd(nullptr) , valid(false) , two_dim(false) , nplots(0)
 {
     init();
 
@@ -679,7 +679,7 @@ inline Gnuplot::Gnuplot(const std::vector<double> &x,
                         const std::string &labelx,
                         const std::string &labely,
                         const std::string &labelz)
-    : gnucmd(NULL) , valid(false) , two_dim(false) , nplots(0)
+    : gnucmd(nullptr) , valid(false) , two_dim(false) , nplots(0)
 {
     init();
 
@@ -856,7 +856,7 @@ bool Gnuplot::set_GNUPlotPath(const std::string &path)
 void Gnuplot::set_terminal_std(const std::string &type)
 {
 #if defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
-    if (type.find("x11") != std::string::npos && getenv("DISPLAY") == NULL)
+    if (type.find("x11") != std::string::npos && getenv("DISPLAY") == nullptr)
     {
         throw GnuplotException("Can't find DISPLAY variable");
     }
@@ -1656,7 +1656,7 @@ void Gnuplot::init(void)
     // whose name is specified as argument.  If the requested variable is not
     // part of the environment list, the function returns a NULL pointer.
 #if ( defined(unix) || defined(__unix) || defined(__unix__) ) && !defined(__APPLE__)
-    if (getenv("DISPLAY") == NULL)
+    if (getenv("DISPLAY") == nullptr)
     {
         valid = false;
         throw GnuplotException("Can't find DISPLAY variable");
@@ -1732,7 +1732,7 @@ bool Gnuplot::get_program_path(void)
     // Retrieves a C string containing the value of environment variable PATH
     const char * const path = getenv("PATH");
 
-    if (path == NULL)
+    if (path == nullptr)
     {
         throw GnuplotException("Path is not set");
     }
@@ -1852,7 +1852,7 @@ std::string Gnuplot::create_tmpfile(std::ofstream &tmp)
     // open temporary files for output
     //
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
-    if (_mktemp(name) == NULL)
+    if (_mktemp(name) == nullptr)
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
     int tmpfd;
     if ((tmpfd = mkstemp(name)) == -1)
