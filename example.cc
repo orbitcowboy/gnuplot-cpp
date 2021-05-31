@@ -111,7 +111,11 @@ int main(void)
         //
         // User defined 1d, 2d and 3d point sets
         //
-        std::vector<double> x, y, y2, dy, z;
+        std::vector<double> x;
+        std::vector<double> y;
+        std::vector<double> y2;
+        std::vector<double> dy;
+        std::vector<double> z;
 
         for (unsigned int i = 0; i < NPOINTS; ++i)  // fill double arrays x, y, z
         {
