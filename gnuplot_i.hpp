@@ -897,10 +897,7 @@ void stringtok (Container &container,
             container.push_back (in.substr(i));
             return;
         }
-        else
-        {
-            container.push_back (in.substr(i, j - i));
-        }
+        container.push_back (in.substr(i, j - i));
 
         // set up for next loop
         i = j + 1;
