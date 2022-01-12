@@ -234,7 +234,8 @@ int main(void)
         Gnuplot g10;
         cout << "window 10: manual control" << endl;
         g10.cmd("set samples 400").cmd("plot abs(x)/2"); // either with cmd()
-        g10 << "replot sqrt(x)" << "replot sqrt(-x)";    // or with <<
+        g10 << "replot sqrt(x)"; 
+        g10 << "replot sqrt(-x)"; 
 
         wait_for_key();
     }
