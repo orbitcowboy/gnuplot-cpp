@@ -1619,27 +1619,22 @@ Gnuplot& Gnuplot::cmd(const std::string &cmdstr)
     // flushed.  The stream remains open after this call.
     fflush(gnucmd);
 
-
-    if( cmdstr.find("replot") != std::string::npos )
-    {
-        return *this;
-    } 
-    else if( cmdstr.find("splot") != std::string::npos )
+    if( cmdstr.find("splot") != std::string::npos )
     {
         two_dim = false;
         ++nplots;
+        return *this;
     }
     else if( cmdstr.find("plot") != std::string::npos )
     {
         two_dim = true;
         ++nplots;
+        return *this;
     }
     else
-	{
-		// Nothing to do
-	}
-
-    return *this;
+    {
+        return *this;
+    }
 }
 
 //------------------------------------------------------------------------------
