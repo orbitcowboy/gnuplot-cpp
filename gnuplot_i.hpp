@@ -364,10 +364,7 @@ class Gnuplot
         // -----------------------------------------------------------------------
         inline Gnuplot& set_title(const std::string &title = "")
         {
-            std::string cmdstr;
-            cmdstr = "set title \"";
-            cmdstr += title;
-            cmdstr += "\"";
+            const std::string cmdstr("set title \"" + title + "\"");
             *this << cmdstr;
             return *this;
         }
